@@ -1,64 +1,25 @@
-// Shared script for every page of the portfolio
+// Shared script for every page (the sky scene is in scene.js)
 (function () {
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const root = document.documentElement;
+  const $ = id => document.getElementById(id);
 
-  // ----- Theme toggle (remembers choice) -----
-  const themeBtn = document.getElementById('themeBtn');
-  if (themeBtn) themeBtn.onclick = () => {
-    root.dataset.theme = root.dataset.theme === 'light' ? 'dark' : 'light';
-    try { localStorage.setItem('theme', root.dataset.theme); } catch (e) {}
-  };
-
-  // ----- Rotating words in hero (home page only) -----
-  const rot = document.getElementById('rotator');
-  if (rot && !reduce) {
-    const words = (rot.dataset.words || rot.textContent).split('|');
-    rot.textContent = words[0];
-    let w = 0, c = words[0].length, deleting = true;
-    setTimeout(function tick() {
-      rot.textContent = words[w].slice(0, c);
-      if (deleting) { c--; if (c < 0) { deleting = false; w = (w + 1) % words.length; c = 0; } }
-      else { c++; if (c > words[w].length) { deleting = true; return setTimeout(tick, 1800); } }
-      setTimeout(tick, deleting ? 45 : 85);
-    }, 2000);
-  } else if (rot) {
-    rot.textContent = (rot.dataset.words || rot.textContent).split('|')[0];
+  // ----- Header turns solid once you scroll past the sky -----
+  const header = document.querySelector('.site-header');
+  const hero = document.querySelector('.scene-hero');
+  function onScroll() {
+    if (header) header.classList.toggle('solid', scrollY > (hero ? hero.offsetHeight - 80 : 10));
+    spy();
   }
 
-  // ----- Reveal on scroll -----
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((e, i) => {
-      if (!e.isIntersecting) return;
-      setTimeout(() => e.target.classList.add('in'), i * 80);
-      io.unobserve(e.target);
-    });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-
-  // ----- Scroll progress bar + active nav/toc link -----
-  const bar = document.getElementById('progress');
-  // only links that point to a section on THIS page (start with #) get scroll-highlighting
-  const spyLinks = [...document.querySelectorAll('nav a[href^="#"], .toc a[href^="#"]')];
-  const spyTargets = spyLinks.map(a => document.querySelector(a.getAttribute('href')));
-  function onScroll() {
-    const h = document.documentElement;
-    const max = h.scrollHeight - h.clientHeight;
-    if (bar) bar.style.transform = `scaleX(${max > 0 ? h.scrollTop / max : 0})`;
-    // experience timeline line fills in as you scroll past it
-    const tl = document.querySelector('.timeline');
-    if (tl) {
-      const r = tl.getBoundingClientRect();
-      tl.style.setProperty('--fill', Math.max(0, Math.min(1, (innerHeight * 0.6 - r.top) / r.height)).toFixed(3));
-    }
-    if (!spyLinks.length) return;
-    ['nav', '.toc'].forEach(group => {
+  // ----- Highlight the nav link / table-of-contents entry for the section on screen -----
+  const spyLinks = [...document.querySelectorAll('.site-header nav a[href^="#"], .toc a[href^="#"]')];
+  function spy() {
+    ['.site-header', '.toc'].forEach(group => {
       const links = spyLinks.filter(a => a.closest(group));
       if (!links.length) return;
-      let idx = 0;
+      let idx = -1;
       links.forEach((a, i) => {
         const t = document.querySelector(a.getAttribute('href'));
-        if (t && t.getBoundingClientRect().top < innerHeight * 0.4) idx = i;
+        if (t && t.getBoundingClientRect().top < innerHeight * .4) idx = i;
       });
       links.forEach((a, i) => a.classList.toggle('active', i === idx));
     });
@@ -66,80 +27,65 @@
   addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-  // ----- Cursor glow + card tilt/spotlight (desktop only) -----
-  if (!reduce && matchMedia('(pointer: fine)').matches) {
-    const glow = document.getElementById('glow');
-    if (glow) addEventListener('mousemove', e => { glow.style.left = e.clientX + 'px'; glow.style.top = e.clientY + 'px'; });
-
-    document.querySelectorAll('.card').forEach(card => {
-      card.addEventListener('mousemove', e => {
-        const r = card.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
-        card.style.setProperty('--mx', x + 'px'); card.style.setProperty('--my', y + 'px');
-        const rx = ((y / r.height) - .5) * -4, ry = ((x / r.width) - .5) * 4;
-        card.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-4px)`;
-      });
-      card.addEventListener('mouseleave', () => card.style.transform = '');
-    });
-
-    // photo card leans gently toward the cursor
-    const portrait = document.querySelector('.portrait');
-    if (portrait) {
-      portrait.addEventListener('mousemove', e => {
-        const r = portrait.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
-        portrait.style.setProperty('--mx', x + 'px'); portrait.style.setProperty('--my', y + 'px');
-        portrait.style.transform = `perspective(900px) rotateX(${((y / r.height) - .5) * -8}deg) rotateY(${((x / r.width) - .5) * 8}deg)`;
-      });
-      portrait.addEventListener('mouseleave', () => portrait.style.transform = '');
-    }
-
-    // soft light follows the cursor inside the contact box
-    const contact = document.querySelector('.contact');
-    if (contact) contact.addEventListener('mousemove', e => {
-      const r = contact.getBoundingClientRect();
-      contact.style.setProperty('--mx', (e.clientX - r.left) + 'px'); contact.style.setProperty('--my', (e.clientY - r.top) + 'px');
-    });
-  }
-
-  // ----- Name letters lift on hover (home page hero) -----
-  document.querySelectorAll('.hero h1 .line > span').forEach(span => {
-    const text = span.textContent; span.textContent = '';
-    [...text].forEach(ch => {
-      const s = document.createElement('span'); s.className = 'ch'; s.textContent = ch; span.appendChild(s);
-    });
-  });
-
-  // ----- Nav: highlight pill slides to the hovered / active tab -----
-  const navEl = document.querySelector('nav');
-  if (navEl) {
-    const ind = document.createElement('span'); ind.className = 'nav-ind'; navEl.prepend(ind);
-    let placed = false;
-    const moveTo = a => {
-      if (!a) { ind.style.opacity = 0; return; }
-      if (!placed) ind.style.transition = 'none'; // first placement: no slide-in from zero
-      ind.style.opacity = 1; ind.style.width = a.offsetWidth + 'px'; ind.style.transform = `translateX(${a.offsetLeft}px)`;
-      if (!placed) { void ind.offsetWidth; ind.style.transition = ''; placed = true; }
-    };
-    const current = () => navEl.querySelector('a.active');
-    navEl.querySelectorAll('a').forEach(a => a.addEventListener('mouseenter', () => moveTo(a)));
-    navEl.addEventListener('mouseleave', () => moveTo(current()));
-    // keep it in sync when scrolling changes the active section
-    new MutationObserver(() => { if (!navEl.matches(':hover')) moveTo(current()); })
-      .observe(navEl, { subtree: true, attributes: true, attributeFilter: ['class'] });
-    addEventListener('resize', () => moveTo(current()));
-    document.fonts?.ready.then(() => moveTo(current()));
-    addEventListener('load', () => moveTo(current()));
-    moveTo(current());
-  }
+  // ----- Fade things in as they scroll into view -----
+  const io = new IntersectionObserver(entries => entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }), { threshold: .12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
   // ----- Copy email -----
-  const copyBtn = document.getElementById('copyEmail');
-  if (copyBtn) copyBtn.onclick = async () => {
+  const copyBtn = $('copyEmail');
+  if (copyBtn) copyBtn.addEventListener('click', async () => {
     const email = copyBtn.dataset.email;
-    try { await navigator.clipboard.writeText(email); } catch (err) { location.href = 'mailto:' + email; return; }
-    const c = document.getElementById('copied');
-    c.classList.add('show'); setTimeout(() => c.classList.remove('show'), 1800);
-  };
+    try { await navigator.clipboard.writeText(email); } catch (e) { location.href = 'mailto:' + email; return; }
+    const c = $('copied'); c.classList.add('show'); setTimeout(() => c.classList.remove('show'), 1800);
+  });
 
-  const year = document.getElementById('year');
+  // ----- Woodshop: filters + preview (lightbox) -----
+  const pieces = [...document.querySelectorAll('.piece')];
+  if (pieces.length) {
+    const chips = document.querySelectorAll('.chip');
+    chips.forEach(chip => chip.addEventListener('click', () => {
+      chips.forEach(c => c.classList.toggle('on', c === chip));
+      const f = chip.dataset.filter;
+      pieces.forEach(p => { p.classList.toggle('hidden', f !== 'all' && p.dataset.cat !== f); p.classList.add('in'); });
+    }));
+
+    const lb = $('lightbox');
+    let current = 0, lastFocus = null;
+    const visible = () => pieces.filter(p => !p.classList.contains('hidden'));
+    function show(piece) {
+      const d = piece.dataset;
+      $('lbTitle').textContent = d.title || '';
+      $('lbYear').textContent = d.year || '';
+      $('lbNote').textContent = d.note || '';
+      $('lbWood').textContent = d.wood || '—';
+      $('lbFinish').textContent = d.finish || '—';
+      $('lbTime').textContent = d.time || '—';
+      const img = piece.querySelector('img');
+      $('lbMedia').innerHTML = img ? `<img src="${img.getAttribute('src')}" alt="${img.getAttribute('alt') || ''}">` : '<div class="ph">photo</div>';
+      current = visible().indexOf(piece);
+    }
+    function open(piece) {
+      lastFocus = document.activeElement; show(piece);
+      lb.classList.add('open'); lb.setAttribute('aria-hidden', 'false'); document.body.style.overflow = 'hidden'; $('lbClose').focus();
+    }
+    function close() {
+      lb.classList.remove('open'); lb.setAttribute('aria-hidden', 'true'); document.body.style.overflow = '';
+      if (lastFocus) lastFocus.focus();
+    }
+    const step = dir => { const v = visible(); if (v.length) show(v[(current + dir + v.length) % v.length]); };
+    pieces.forEach(p => p.addEventListener('click', () => open(p)));
+    $('lbClose').onclick = close; $('lbPrev').onclick = () => step(-1); $('lbNext').onclick = () => step(1);
+    lb.addEventListener('click', e => { if (e.target === lb) close(); });
+    addEventListener('keydown', e => {
+      if (!lb.classList.contains('open')) return;
+      if (e.key === 'Escape') close();
+      if (e.key === 'ArrowLeft') step(-1);
+      if (e.key === 'ArrowRight') step(1);
+    });
+  }
+
+  const year = $('year');
   if (year) year.textContent = new Date().getFullYear();
 })();
