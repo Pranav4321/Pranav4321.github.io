@@ -45,6 +45,12 @@
     const h = document.documentElement;
     const max = h.scrollHeight - h.clientHeight;
     if (bar) bar.style.transform = `scaleX(${max > 0 ? h.scrollTop / max : 0})`;
+    // experience timeline line fills in as you scroll past it
+    const tl = document.querySelector('.timeline');
+    if (tl) {
+      const r = tl.getBoundingClientRect();
+      tl.style.setProperty('--fill', Math.max(0, Math.min(1, (innerHeight * 0.6 - r.top) / r.height)).toFixed(3));
+    }
     if (!spyLinks.length) return;
     ['nav', '.toc'].forEach(group => {
       const links = spyLinks.filter(a => a.closest(group));
@@ -74,6 +80,55 @@
       });
       card.addEventListener('mouseleave', () => card.style.transform = '');
     });
+
+    // photo card leans gently toward the cursor
+    const portrait = document.querySelector('.portrait');
+    if (portrait) {
+      portrait.addEventListener('mousemove', e => {
+        const r = portrait.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+        portrait.style.setProperty('--mx', x + 'px'); portrait.style.setProperty('--my', y + 'px');
+        portrait.style.transform = `perspective(900px) rotateX(${((y / r.height) - .5) * -8}deg) rotateY(${((x / r.width) - .5) * 8}deg)`;
+      });
+      portrait.addEventListener('mouseleave', () => portrait.style.transform = '');
+    }
+
+    // soft light follows the cursor inside the contact box
+    const contact = document.querySelector('.contact');
+    if (contact) contact.addEventListener('mousemove', e => {
+      const r = contact.getBoundingClientRect();
+      contact.style.setProperty('--mx', (e.clientX - r.left) + 'px'); contact.style.setProperty('--my', (e.clientY - r.top) + 'px');
+    });
+  }
+
+  // ----- Name letters lift on hover (home page hero) -----
+  document.querySelectorAll('.hero h1 .line > span').forEach(span => {
+    const text = span.textContent; span.textContent = '';
+    [...text].forEach(ch => {
+      const s = document.createElement('span'); s.className = 'ch'; s.textContent = ch; span.appendChild(s);
+    });
+  });
+
+  // ----- Nav: highlight pill slides to the hovered / active tab -----
+  const navEl = document.querySelector('nav');
+  if (navEl) {
+    const ind = document.createElement('span'); ind.className = 'nav-ind'; navEl.prepend(ind);
+    let placed = false;
+    const moveTo = a => {
+      if (!a) { ind.style.opacity = 0; return; }
+      if (!placed) ind.style.transition = 'none'; // first placement: no slide-in from zero
+      ind.style.opacity = 1; ind.style.width = a.offsetWidth + 'px'; ind.style.transform = `translateX(${a.offsetLeft}px)`;
+      if (!placed) { void ind.offsetWidth; ind.style.transition = ''; placed = true; }
+    };
+    const current = () => navEl.querySelector('a.active');
+    navEl.querySelectorAll('a').forEach(a => a.addEventListener('mouseenter', () => moveTo(a)));
+    navEl.addEventListener('mouseleave', () => moveTo(current()));
+    // keep it in sync when scrolling changes the active section
+    new MutationObserver(() => { if (!navEl.matches(':hover')) moveTo(current()); })
+      .observe(navEl, { subtree: true, attributes: true, attributeFilter: ['class'] });
+    addEventListener('resize', () => moveTo(current()));
+    document.fonts?.ready.then(() => moveTo(current()));
+    addEventListener('load', () => moveTo(current()));
+    moveTo(current());
   }
 
   // ----- Copy email -----
