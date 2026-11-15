@@ -3,215 +3,189 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pranav Sristy</title>
-  <meta name="description" content="Pranav Sristy: Biomedical & Computer Engineering at Johns Hopkins. Surgical robotics, ML, and things that move." />
+  <title>Pranav Sristy · Portfolio</title>
+  <meta name="description" content="Portfolio of Pranav Sristy — engineering, software and design projects." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Geist+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=3" />
-  <script>try{var t=localStorage.getItem('theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.dataset.theme=t}catch(e){}</script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
 </head>
 <body>
   <div class="progress" id="progress"></div>
+  <div class="glow" id="glow"></div>
 
-  <nav id="nav">
-    <a href="#top" class="brand" aria-label="Pranav Sristy, home">
-      <svg viewBox="0 0 28 28" aria-hidden="true"><rect x="3" y="22" width="12" height="4" rx="1.5" fill="currentColor"/><path d="M9 22 L15 12" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/><g class="j2"><path d="M15 12 L24 8" stroke="var(--accent)" stroke-width="3.2" stroke-linecap="round"/><circle cx="24" cy="8" r="2" fill="var(--accent-2)"/></g><circle cx="15" cy="12" r="2.6" fill="var(--bg)" stroke="currentColor" stroke-width="1.8"/></svg>
-      <span class="full">Pranav Sristy</span>
-    </a>
+  <!-- On the home page these links slide to each section -->
+  <nav>
+    <a href="#top" class="active">Home</a>
     <a href="#about" class="hide-sm">About</a>
     <a href="#experience">Experience</a>
     <a href="#projects">Projects</a>
-    <a href="woodworking.html" class="hide-xs">Woodworking</a>
+    <a href="woodworking.html">Woodworking</a>
+    <a href="#contact" class="hide-sm">Contact</a>
     <button class="theme-btn" id="themeBtn" aria-label="Toggle light/dark mode">
-      <svg class="sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
-      <svg class="moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
     </button>
   </nav>
 
   <!-- ============ HERO ============ -->
-  <header class="hero wrap" id="top">
-    <div class="hero-grid">
+  <header class="hero" id="top">
+    <div class="wrap hero-grid">
       <div>
-        <div class="status reveal"><span class="dot"></span>Now: <b>ML research @ ARCADE Lab</b></div>
-        <h1 class="name" id="name"><span class="row">Pranav</span><span class="row">Sristy</span></h1>
+        <h1>
+          <span class="line"><span>Pranav</span></span>
+          <span class="line"><span>Sristy.</span></span>
+        </h1>
         <!-- Edit the rotating words here, separated by | -->
-        <p class="intro reveal">BME &amp; CE student at <strong>Johns Hopkins</strong>, building <span class="rotator" id="rotator" data-words="surgical robots|ML models|medical devices|furniture|things that move">surgical robots</span></p>
-        <div class="cta reveal">
+        <p class="role">BME & CE student at Johns Hopkins University, building <span class="rotator" id="rotator" data-words="robots|web apps|hardware|things that move">robots</span></p>
+        <div class="cta">
           <a class="btn primary" href="#projects">See my work
-            <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </a>
-          <a class="btn" href="resume.pdf" target="_blank">Résumé</a>
-        </div>
-        <div class="socials reveal">
-          <a href="https://github.com/yourusername" target="_blank" rel="noopener" aria-label="GitHub">
+          <a class="btn" href="https://github.com/yourusername" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a11.5 11.5 0 0 0-3.6 22.4c.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0C17.3 4.7 18.3 5 18.3 5c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.2c0 .3.2.7.8.6A11.5 11.5 0 0 0 12 .5Z"/></svg>
-          </a>
-          <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener" aria-label="LinkedIn">
+            GitHub</a>
+          <a class="btn" href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.4 20.5h-3.6v-5.6c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9v5.7H9.3V9h3.4v1.6h.1c.5-.9 1.6-1.8 3.4-1.8 3.6 0 4.3 2.4 4.3 5.5v6.2ZM5.3 7.4a2.1 2.1 0 1 1 0-4.2 2.1 2.1 0 0 1 0 4.2ZM7.1 20.5H3.5V9h3.6v11.5ZM22.2 0H1.8C.8 0 0 .8 0 1.7v20.6c0 .9.8 1.7 1.8 1.7h20.4c1 0 1.8-.8 1.8-1.7V1.7C24 .8 23.2 0 22.2 0Z"/></svg>
-          </a>
-          <a href="#contact" aria-label="Email">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
-          </a>
+            LinkedIn</a>
+          <a class="btn" href="resume.pdf" target="_blank">Résumé</a>
         </div>
       </div>
 
-      <!-- Robot arm: follows the cursor (2-link inverse kinematics). Click to grip. Drawn by main.js -->
-      <div class="arm-stage reveal">
-        <svg class="arm" id="arm" viewBox="0 0 480 440" aria-label="Interactive robot arm that follows your cursor" role="img">
-          <polyline class="trail" id="armTrail" points="" />
-          <circle class="target" id="armTarget" r="9" cx="240" cy="120" />
-          <line class="ground" x1="20" y1="392" x2="460" y2="392" />
-          <g id="hatch"></g>
-          <path class="base" d="M196 392 L206 362 Q208 356 214 356 L266 356 Q272 356 274 362 L284 392 Z" />
-          <g id="arm1" transform="translate(240 350)">
-            <rect class="link-1" x="-14" y="-14" width="178" height="28" rx="14" />
-            <g id="arm2" transform="translate(150 0)">
-              <rect class="link-2" x="-11" y="-11" width="146" height="22" rx="11" />
-              <g transform="translate(132 0)">
-                <rect class="finger" id="fingerA" x="0" y="-14" width="26" height="7" rx="3.5" />
-                <rect class="finger" id="fingerB" x="0" y="7" width="26" height="7" rx="3.5" />
-                <rect class="link-1" x="-6" y="-16" width="10" height="32" rx="4" />
-              </g>
-              <circle class="joint" r="13" />
-              <circle class="joint-dot" r="4.5" />
-            </g>
-          </g>
-          <circle class="joint" cx="240" cy="350" r="16" />
-          <circle class="joint-dot" cx="240" cy="350" r="5.5" />
-        </svg>
-        <div class="arm-hint">move · click to grip</div>
-        <div class="readout"><span>θ₁ <b id="t1">0°</b></span><span>θ₂ <b id="t2">0°</b></span><span>grip <b id="grip">open</b></span></div>
+      <div class="portrait float reveal">
+        <!-- Replace with: <img src="assets/me.jpg" alt="Pranav Sristy"> -->
+        <div class="placeholder">YN</div>
+        <div class="portrait-tag">📍 Baltimore, MD</div>
       </div>
     </div>
+    <div class="scroll-hint mono">scroll<i></i></div>
   </header>
 
   <main class="wrap">
     <!-- ============ ABOUT ============ -->
     <section id="about">
-      <div class="sec-title reveal"><h2>About</h2><span class="num">/01</span></div>
-      <div class="about">
-        <div class="about-text reveal">
-          <p>Hey! I'm Pranav, a <strong>BME &amp; CE student at Johns Hopkins</strong>. I like building things, whether that means writing software or working with hardware.</p>
-          <p>Lately I've been working on <strong>medical technology, AI, and robotics</strong>. Outside of class, you'll find me hooping or making something in the <a class="link" href="woodworking.html">woodshop</a>.</p>
-        </div>
-        <div class="kit reveal">
-          <div class="kit-row" style="--c:var(--accent)"><div class="mono"><i></i>Code</div><div class="tags"><span class="tag">Python</span><span class="tag">C++</span><span class="tag">JavaScript</span><span class="tag">React</span></div></div>
-          <div class="kit-row" style="--c:#6d7fd6"><div class="mono"><i></i>Robotics &amp; ML</div><div class="tags"><span class="tag">ROS</span><span class="tag">PyTorch</span><span class="tag">OpenCV</span></div></div>
-          <div class="kit-row" style="--c:var(--accent-2)"><div class="mono"><i></i>Hardware</div><div class="tags"><span class="tag">CAD</span><span class="tag">Prototyping</span><span class="tag">Git</span></div></div>
+      <div class="sec-head reveal"><span class="num">01</span><h2>About</h2><span class="rule"></span></div>
+      <div class="about reveal">
+        <p>I'm a <strong>BME & CE student at Johns Hopkins University</strong> who likes building things, whether that means writing software or working with hardware.</p>
+        <p>Lately I've been working on <strong>medical technology, AI, and robotics</strong>. Outside of class, you'll find me hooping or making something in the woodshop.</p>
+        <div class="skills">
+          <span class="tag">Python</span><span class="tag">C++</span><span class="tag">JavaScript</span>
+          <span class="tag">React</span><span class="tag">ROS</span><span class="tag">CAD</span><span class="tag">Git</span>
         </div>
       </div>
     </section>
 
     <!-- ============ EXPERIENCE ============ -->
-    <!-- The carriage on the rail slides with scroll. Each row links to experience.html#id -->
+    <!-- Each row links to that entry on experience.html (the #id must match the id there) -->
     <section id="experience">
-      <div class="sec-title reveal"><h2>Experience</h2><span class="num">/02</span></div>
-      <div class="rail-wrap" id="railWrap">
-        <div class="rail"></div>
-        <div class="carriage" id="carriage"></div>
-
-        <a class="job" href="experience.html#acme">
+      <div class="sec-head reveal"><span class="num">02</span><h2>Experience &amp; Education</h2><span class="rule"></span></div>
+      <div class="timeline">
+        <a class="job reveal" href="experience.html#acme">
           <div class="logo"><img src="images/arcade_img.png" alt="ARCADE Lab"></div>
           <div>
-            <h3>ARCADE Lab, Johns Hopkins</h3>
+            <h3>ARCADE Lab - Johns Hopkins University</h3>
             <div class="title">ML Research Assistant</div>
             <p class="desc">Building generative AI systems for robotic surgery.</p>
           </div>
-          <div class="when mono">Feb 2026 – Sep 2026</div>
+          <div class="when mono"><br />Feb 2026 — Sep 2026</div>
         </a>
-        <a class="job" href="experience.html#lab">
-          <div class="logo">DT</div>
+        <a class="job reveal" href="experience.html#lab">
+          <div class="logo">RL</div>
           <div>
-            <h3>Design Team, JHU School of Medicine</h3>
-            <div class="title">R&amp;D Engineer</div>
+            <h3>Design Team, Johns Hopkins School of Medicine</h3>
+            <div class="title">R&D Engineer</div>
             <p class="desc">Engineering a device for minimally invasive surgery.</p>
           </div>
-          <div class="when mono">Jan 2026 – Aug 2026</div>
+          <div class="when mono">Jan 2026 — Aug 2026<br /></div>
         </a>
-        <a class="job" href="experience.html#university">
-          <div class="logo">JHU</div>
+        <a class="job reveal" href="experience.html#university">
+          <div class="logo">YU</div>
           <div>
             <h3>Johns Hopkins University</h3>
             <div class="title">B.S. Biomedical Engineering, Computer Engineering</div>
-            <p class="desc">AKPsi, Volunteers for Medical Engineering, Software Engineering Club.</p>
+            <p class="desc">AKPsi, Volunteers for Medical Engineering (VME), Software Engineering Club.</p>
           </div>
-          <div class="when mono">Aug 2024 – May 2028</div>
+          <div class="when mono">Aug 2024 — May 2028<br /></div>
         </a>
       </div>
-      <div class="timeline-more reveal"><a class="link" href="experience.html">More about my experience →</a></div>
+      <div class="timeline-more reveal">
+        <a class="btn" href="experience.html">Learn more about my experience
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
     </section>
 
     <!-- ============ PROJECTS ============ -->
-    <!-- Hover a row to see its preview. Set the colour with --c, and add a photo with data-img="images/whatever.jpg" -->
+    <!-- Each card links to its own page in the projects/ folder -->
     <section id="projects">
-      <div class="sec-title reveal"><h2>Projects</h2><span class="num">/03</span></div>
-      <div class="plist">
-        <a class="prow reveal" href="projects/project-1.html" style="--c:#2a9d8f" data-img="">
-          <div class="pthumb"></div>
-          <span class="pnum">01</span>
-          <div><h3>Flagship Project</h3><p>Two sentences on the problem, what you built, and the coolest technical detail.</p></div>
-          <div class="tags"><span class="tag">Python</span><span class="tag">ROS 2</span></div>
-          <span class="pyear">2026</span><span class="parrow">→</span>
+      <div class="sec-head reveal"><span class="num">03</span><h2>Selected Projects</h2><span class="rule"></span></div>
+      <div class="projects">
+
+        <a class="card wide reveal" href="projects/project-1.html">
+          <div class="media">
+            <!-- <img src="assets/project1.jpg" alt=""> -->
+            <div class="ph mono">project image</div>
+          </div>
+          <div class="body">
+            <div class="label mono"><span>P—01 · Featured</span><span>2026</span></div>
+            <h3>Flagship Project</h3>
+            <p>Two sentences on the problem, what you built, and the coolest technical detail. This is the one you want recruiters to remember.</p>
+            <div class="tags"><span class="tag">Python</span><span class="tag">PyTorch</span><span class="tag">ROS 2</span></div>
+            <span class="more">View project <span>→</span></span>
+          </div>
         </a>
-        <a class="prow reveal" href="projects/project-2.html" style="--c:#e09f3e" data-img="">
-          <div class="pthumb"></div>
-          <span class="pnum">02</span>
-          <div><h3>Second Project</h3><p>Short description of what it does and why it's interesting.</p></div>
-          <div class="tags"><span class="tag">React</span><span class="tag">Node</span></div>
-          <span class="pyear">2026</span><span class="parrow">→</span>
+
+        <a class="card reveal" href="projects/project-2.html">
+          <div class="media"><div class="ph mono">project image</div></div>
+          <div class="body">
+            <div class="label mono"><span>P—02</span><span>2026</span></div>
+            <h3>Second Project</h3>
+            <p>Short description of what it does and why it's interesting.</p>
+            <div class="tags"><span class="tag">React</span><span class="tag">Node</span></div>
+            <span class="more">View project <span>→</span></span>
+          </div>
         </a>
-        <a class="prow reveal" href="projects/project-3.html" style="--c:#d1708a" data-img="">
-          <div class="pthumb"></div>
-          <span class="pnum">03</span>
-          <div><h3>Third Project</h3><p>Short description of what it does and why it's interesting.</p></div>
-          <div class="tags"><span class="tag">C++</span><span class="tag">ESP32</span></div>
-          <span class="pyear">2025</span><span class="parrow">→</span>
+
+        <a class="card reveal" href="projects/project-3.html">
+          <div class="media"><div class="ph mono">project image</div></div>
+          <div class="body">
+            <div class="label mono"><span>P—03</span><span>2025</span></div>
+            <h3>Third Project</h3>
+            <p>Short description of what it does and why it's interesting.</p>
+            <div class="tags"><span class="tag">C++</span><span class="tag">ESP32</span></div>
+            <span class="more">View project <span>→</span></span>
+          </div>
         </a>
-        <a class="prow reveal" href="projects/project-4.html" style="--c:#6d7fd6" data-img="">
-          <div class="pthumb"></div>
-          <span class="pnum">04</span>
-          <div><h3>Fourth Project</h3><p>Short description of what it does and why it's interesting.</p></div>
-          <div class="tags"><span class="tag">Fusion 360</span><span class="tag">MATLAB</span></div>
-          <span class="pyear">2025</span><span class="parrow">→</span>
+
+        <a class="card reveal" href="projects/project-4.html">
+          <div class="media"><div class="ph mono">project image</div></div>
+          <div class="body">
+            <div class="label mono"><span>P—04</span><span>2025</span></div>
+            <h3>Fourth Project</h3>
+            <p>Short description of what it does and why it's interesting.</p>
+            <div class="tags"><span class="tag">Fusion 360</span><span class="tag">MATLAB</span></div>
+            <span class="more">View project <span>→</span></span>
+          </div>
         </a>
-        <a class="prow reveal" href="projects/project-5.html" style="--c:#8fa04a" data-img="">
-          <div class="pthumb"></div>
-          <span class="pnum">05</span>
-          <div><h3>Fifth Project</h3><p>Short description of what it does and why it's interesting.</p></div>
-          <div class="tags"><span class="tag">Swift</span><span class="tag">Figma</span></div>
-          <span class="pyear">2024</span><span class="parrow">→</span>
+
+        <a class="card reveal" href="projects/project-5.html">
+          <div class="media"><div class="ph mono">project image</div></div>
+          <div class="body">
+            <div class="label mono"><span>P—05</span><span>2024</span></div>
+            <h3>Fifth Project</h3>
+            <p>Short description of what it does and why it's interesting.</p>
+            <div class="tags"><span class="tag">Swift</span><span class="tag">Figma</span></div>
+            <span class="more">View project <span>→</span></span>
+          </div>
         </a>
       </div>
-    </section>
-
-    <!-- ============ WOODWORKING ============ -->
-    <section id="shop" style="padding-top:0">
-      <a class="shop reveal" href="woodworking.html">
-        <svg class="grain" viewBox="0 0 800 300" preserveAspectRatio="none" aria-hidden="true">
-          <filter id="wood" x="0" y="0" width="100%" height="100%">
-            <feTurbulence type="fractalNoise" baseFrequency="0.0035 0.07" numOctaves="3" seed="11" />
-            <feColorMatrix type="matrix" values="0 0 0 0 0.42  0 0 0 0 0.22  0 0 0 0 0.09  0 0 0 -2.6 1.55" />
-          </filter>
-          <linearGradient id="shade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#2a1608" stop-opacity=".55"/></linearGradient>
-          <rect width="800" height="300" fill="#c0803f" />
-          <rect width="800" height="300" filter="url(#wood)" />
-          <rect width="800" height="300" fill="url(#shade)" />
-        </svg>
-        <div>
-          <div class="mono">/04 · Off the clock</div>
-          <h3>I also make furniture.</h3>
-          <p>Tables, boxes, bowls, and a lot of sawdust. Come see the woodshop.</p>
-        </div>
-        <span class="go" aria-hidden="true">→</span>
-      </a>
     </section>
 
     <!-- ============ CONTACT ============ -->
     <section id="contact">
       <div class="contact reveal">
-        <span class="mono">/05 · Contact</span>
-        <h2 style="margin-top:14px">Let's build<br><span>something.</span></h2>
+        <div class="sec-head" style="justify-content:center;margin-bottom:24px"><span class="num">04</span><span class="mono">Contact</span></div>
+        <h2>Let's build something.</h2>
         <p>I'm always up for talking about projects, research, or internship opportunities.</p>
         <div class="cta">
           <button class="btn primary email" id="copyEmail" data-email="you@email.com">you@email.com</button>
@@ -223,12 +197,10 @@
 
     <footer class="mono">
       <span>© <span id="year"></span> Pranav Sristy</span>
-      <span>Designed &amp; built by hand in Baltimore</span>
+      <span>Built by hand · Hosted on GitHub Pages</span>
     </footer>
   </main>
 
-  <div class="preview" id="preview"></div>
-
-  <script src="main.js?v=3"></script>
+  <script src="main.js"></script>
 </body>
 </html>
