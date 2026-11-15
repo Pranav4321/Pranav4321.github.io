@@ -4,7 +4,7 @@
   const fine = matchMedia('(pointer: fine)').matches;
   const root = document.documentElement;
   // '' on top-level pages, '../' inside projects/
-  const base = (document.querySelector('script[src$="main.js"]')?.getAttribute('src') || 'main.js').replace('main.js', '');
+  const base = (document.querySelector('script[src*="main.js"]')?.getAttribute('src') || 'main.js').split('main.js')[0];
 
   // ----- Theme toggle (remembers choice) -----
   function toggleTheme() {
