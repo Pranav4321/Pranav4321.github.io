@@ -3,131 +3,148 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pranav Sristy · Portfolio</title>
-  <meta name="description" content="Portfolio of Pranav Sristy — engineering, software and design projects." />
+  <title>Pranav Sristy</title>
+  <meta name="description" content="Pranav Sristy: Biomedical & Computer Engineering at Johns Hopkins. Robotics, medical devices, and ML." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,400..600,0..100;1,9..144,400..600,0..100&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
-  <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+  <script>try{var t=localStorage.getItem('theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.dataset.theme=t}catch(e){}</script>
 </head>
 <body>
   <div class="progress" id="progress"></div>
-  <div class="glow" id="glow"></div>
 
   <!-- On the home page these links slide to each section -->
-  <nav>
-    <a href="#top" class="active">Home</a>
+  <nav id="nav">
+    <a href="#top" class="brand"><span class="mark">P</span><span class="full">Pranav Sristy</span></a>
     <a href="#about" class="hide-sm">About</a>
     <a href="#experience">Experience</a>
     <a href="#projects">Projects</a>
-    <a href="woodworking.html">Woodworking</a>
-    <a href="#contact" class="hide-sm">Contact</a>
+    <a href="woodworking.html" class="hide-xs">Woodworking</a>
+    <button class="k-btn" id="kBtn" aria-label="Open command menu">⌘K</button>
     <button class="theme-btn" id="themeBtn" aria-label="Toggle light/dark mode">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      <svg class="sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      <svg class="moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
     </button>
   </nav>
 
   <!-- ============ HERO ============ -->
-  <header class="hero" id="top">
-    <div class="wrap hero-grid">
+  <header class="hero wrap" id="top">
+    <div class="hero-grid">
       <div>
-        <h1>
-          <span class="line"><span>Pranav</span></span>
-          <span class="line"><span>Sristy.</span></span>
-        </h1>
+        <div class="kicker mono reveal"><span class="dot"></span>Currently: ML research @ ARCADE Lab, JHU</div>
+        <h1 class="name" id="name">Pranav <em>Sristy</em></h1>
         <!-- Edit the rotating words here, separated by | -->
-        <p class="role">BME & CE student at Johns Hopkins University, building <span class="rotator" id="rotator" data-words="robots|web apps|hardware|things that move">robots</span></p>
-        <div class="cta">
+        <p class="intro reveal">I study <strong>Biomedical &amp; Computer Engineering</strong> at Johns Hopkins, and I like building <span class="rotator" id="rotator" data-words="robots|surgical tools|ML models|furniture|things that move">robots</span></p>
+        <div class="cta reveal">
           <a class="btn primary" href="#projects">See my work
             <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </a>
-          <a class="btn" href="https://github.com/yourusername" target="_blank" rel="noopener">
+          <a class="btn" href="resume.pdf" target="_blank">Résumé ↗</a>
+        </div>
+        <div class="socials reveal">
+          <a href="https://github.com/yourusername" target="_blank" rel="noopener" aria-label="GitHub">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a11.5 11.5 0 0 0-3.6 22.4c.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0C17.3 4.7 18.3 5 18.3 5c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.2c0 .3.2.7.8.6A11.5 11.5 0 0 0 12 .5Z"/></svg>
-            GitHub</a>
-          <a class="btn" href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener">
+          </a>
+          <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener" aria-label="LinkedIn">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.4 20.5h-3.6v-5.6c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9v5.7H9.3V9h3.4v1.6h.1c.5-.9 1.6-1.8 3.4-1.8 3.6 0 4.3 2.4 4.3 5.5v6.2ZM5.3 7.4a2.1 2.1 0 1 1 0-4.2 2.1 2.1 0 0 1 0 4.2ZM7.1 20.5H3.5V9h3.6v11.5ZM22.2 0H1.8C.8 0 0 .8 0 1.7v20.6c0 .9.8 1.7 1.8 1.7h20.4c1 0 1.8-.8 1.8-1.7V1.7C24 .8 23.2 0 22.2 0Z"/></svg>
-            LinkedIn</a>
-          <a class="btn" href="resume.pdf" target="_blank">Résumé</a>
+          </a>
+          <a href="#contact" aria-label="Email">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+          </a>
         </div>
       </div>
 
-      <div class="portrait float reveal">
-        <!-- Replace with: <img src="assets/me.jpg" alt="Pranav Sristy"> -->
-        <div class="placeholder">YN</div>
-        <div class="portrait-tag">📍 Baltimore, MD</div>
+      <!-- Polaroid: drag it around, it springs back -->
+      <div class="polaroid-wrap reveal">
+        <div class="polaroid" id="polaroid">
+          <span class="tape"></span>
+          <div class="photo">
+            <!-- Replace with: <img src="images/me.jpg" alt="Pranav Sristy"> -->
+            <div class="ph mono">your photo here</div>
+          </div>
+          <div class="caption">Baltimore, MD</div>
+        </div>
+        <span class="drag-hint">(drag me)</span>
       </div>
     </div>
-    <div class="scroll-hint mono">scroll<i></i></div>
+
+    <div class="spec-strip reveal">
+      <div><span class="mono">Studying</span><b>BME + CE, JHU '28</b></div>
+      <div><span class="mono">Focus</span><b>Surgical robotics, ML</b></div>
+      <div><span class="mono">Based in</span><b>Baltimore, MD</b></div>
+      <div><span class="mono">Local time</span><b id="clock">--:--</b></div>
+    </div>
   </header>
 
   <main class="wrap">
     <!-- ============ ABOUT ============ -->
-    <section id="about">
-      <div class="sec-head reveal"><span class="num">01</span><h2>About</h2><span class="rule"></span></div>
+    <section id="about" class="sec">
+      <div class="sec-label reveal"><span class="num">01</span><h2>About</h2></div>
       <div class="about reveal">
-        <p>I'm a <strong>BME & CE student at Johns Hopkins University</strong> who likes building things, whether that means writing software or working with hardware.</p>
-        <p>Lately I've been working on <strong>medical technology, AI, and robotics</strong>. Outside of class, you'll find me hooping or making something in the woodshop.</p>
-        <div class="skills">
-          <span class="tag">Python</span><span class="tag">C++</span><span class="tag">JavaScript</span>
-          <span class="tag">React</span><span class="tag">ROS</span><span class="tag">CAD</span><span class="tag">Git</span>
+        <p>Hey! I'm Pranav, a <strong>BME &amp; CE student at Johns Hopkins</strong>. I like building things, whether that means writing software or working with hardware.</p>
+        <p>Lately I've been working on <strong>medical technology, AI, and robotics</strong>. Outside of class, you'll find me hooping or making something in the <a class="link" href="woodworking.html">woodshop</a>.</p>
+        <div class="toolbox">
+          <div><span class="mono">Code</span><p>Python, C++, JavaScript, React</p></div>
+          <div><span class="mono">Robotics &amp; ML</span><p>ROS, PyTorch, OpenCV</p></div>
+          <div><span class="mono">Hardware</span><p>CAD, prototyping, Git</p></div>
         </div>
       </div>
     </section>
 
     <!-- ============ EXPERIENCE ============ -->
     <!-- Each row links to that entry on experience.html (the #id must match the id there) -->
-    <section id="experience">
-      <div class="sec-head reveal"><span class="num">02</span><h2>Experience &amp; Education</h2><span class="rule"></span></div>
-      <div class="timeline">
-        <a class="job reveal" href="experience.html#acme">
-          <div class="logo"><img src="images/arcade_img.png" alt="ARCADE Lab"></div>
-          <div>
-            <h3>ARCADE Lab - Johns Hopkins University</h3>
-            <div class="title">ML Research Assistant</div>
-            <p class="desc">Building generative AI systems for robotic surgery.</p>
-          </div>
-          <div class="when mono"><br />Feb 2026 — Sep 2026</div>
-        </a>
-        <a class="job reveal" href="experience.html#lab">
-          <div class="logo">RL</div>
-          <div>
-            <h3>Design Team, Johns Hopkins School of Medicine</h3>
-            <div class="title">R&D Engineer</div>
-            <p class="desc">Engineering a device for minimally invasive surgery.</p>
-          </div>
-          <div class="when mono">Jan 2026 — Aug 2026<br /></div>
-        </a>
-        <a class="job reveal" href="experience.html#university">
-          <div class="logo">YU</div>
-          <div>
-            <h3>Johns Hopkins University</h3>
-            <div class="title">B.S. Biomedical Engineering, Computer Engineering</div>
-            <p class="desc">AKPsi, Volunteers for Medical Engineering (VME), Software Engineering Club.</p>
-          </div>
-          <div class="when mono">Aug 2024 — May 2028<br /></div>
-        </a>
-      </div>
-      <div class="timeline-more reveal">
-        <a class="btn" href="experience.html">Learn more about my experience
-          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </a>
+    <section id="experience" class="sec">
+      <div class="sec-label reveal"><span class="num">02</span><h2>Experience</h2></div>
+      <div>
+        <div class="timeline">
+          <a class="job reveal" href="experience.html#acme">
+            <div class="logo"><img src="images/arcade_img.png" alt="ARCADE Lab"></div>
+            <div>
+              <h3>ARCADE Lab, Johns Hopkins</h3>
+              <div class="title">ML Research Assistant</div>
+              <p class="desc">Building generative AI systems for robotic surgery.</p>
+            </div>
+            <div class="when mono"><span>Feb 2026 – Sep 2026</span><span class="go">→</span></div>
+          </a>
+          <a class="job reveal" href="experience.html#lab">
+            <div class="logo">DT</div>
+            <div>
+              <h3>Design Team, JHU School of Medicine</h3>
+              <div class="title">R&amp;D Engineer</div>
+              <p class="desc">Engineering a device for minimally invasive surgery.</p>
+            </div>
+            <div class="when mono"><span>Jan 2026 – Aug 2026</span><span class="go">→</span></div>
+          </a>
+          <a class="job reveal" href="experience.html#university">
+            <div class="logo">JHU</div>
+            <div>
+              <h3>Johns Hopkins University</h3>
+              <div class="title">B.S. Biomedical Engineering, Computer Engineering</div>
+              <p class="desc">AKPsi, Volunteers for Medical Engineering, Software Engineering Club.</p>
+            </div>
+            <div class="when mono"><span>Aug 2024 – May 2028</span><span class="go">→</span></div>
+          </a>
+        </div>
+        <div class="timeline-more reveal">
+          <a class="link" href="experience.html">More about my experience →</a>
+        </div>
       </div>
     </section>
 
     <!-- ============ PROJECTS ============ -->
     <!-- Each card links to its own page in the projects/ folder -->
-    <section id="projects">
-      <div class="sec-head reveal"><span class="num">03</span><h2>Selected Projects</h2><span class="rule"></span></div>
+    <section id="projects" class="sec">
+      <div class="sec-label reveal"><span class="num">03</span><h2>Projects</h2></div>
       <div class="projects">
 
         <a class="card wide reveal" href="projects/project-1.html">
           <div class="media">
-            <!-- <img src="assets/project1.jpg" alt=""> -->
+            <!-- <img src="images/project1.jpg" alt=""> -->
             <div class="ph mono">project image</div>
           </div>
           <div class="body">
-            <div class="label mono"><span>P—01 · Featured</span><span>2026</span></div>
+            <div class="label mono"><span>PN-001 · Featured</span><span>2026</span></div>
             <h3>Flagship Project</h3>
             <p>Two sentences on the problem, what you built, and the coolest technical detail. This is the one you want recruiters to remember.</p>
             <div class="tags"><span class="tag">Python</span><span class="tag">PyTorch</span><span class="tag">ROS 2</span></div>
@@ -138,7 +155,7 @@
         <a class="card reveal" href="projects/project-2.html">
           <div class="media"><div class="ph mono">project image</div></div>
           <div class="body">
-            <div class="label mono"><span>P—02</span><span>2026</span></div>
+            <div class="label mono"><span>PN-002</span><span>2026</span></div>
             <h3>Second Project</h3>
             <p>Short description of what it does and why it's interesting.</p>
             <div class="tags"><span class="tag">React</span><span class="tag">Node</span></div>
@@ -149,7 +166,7 @@
         <a class="card reveal" href="projects/project-3.html">
           <div class="media"><div class="ph mono">project image</div></div>
           <div class="body">
-            <div class="label mono"><span>P—03</span><span>2025</span></div>
+            <div class="label mono"><span>PN-003</span><span>2025</span></div>
             <h3>Third Project</h3>
             <p>Short description of what it does and why it's interesting.</p>
             <div class="tags"><span class="tag">C++</span><span class="tag">ESP32</span></div>
@@ -160,7 +177,7 @@
         <a class="card reveal" href="projects/project-4.html">
           <div class="media"><div class="ph mono">project image</div></div>
           <div class="body">
-            <div class="label mono"><span>P—04</span><span>2025</span></div>
+            <div class="label mono"><span>PN-004</span><span>2025</span></div>
             <h3>Fourth Project</h3>
             <p>Short description of what it does and why it's interesting.</p>
             <div class="tags"><span class="tag">Fusion 360</span><span class="tag">MATLAB</span></div>
@@ -171,7 +188,7 @@
         <a class="card reveal" href="projects/project-5.html">
           <div class="media"><div class="ph mono">project image</div></div>
           <div class="body">
-            <div class="label mono"><span>P—05</span><span>2024</span></div>
+            <div class="label mono"><span>PN-005</span><span>2024</span></div>
             <h3>Fifth Project</h3>
             <p>Short description of what it does and why it's interesting.</p>
             <div class="tags"><span class="tag">Swift</span><span class="tag">Figma</span></div>
@@ -181,11 +198,24 @@
       </div>
     </section>
 
+    <!-- ============ OFF THE CLOCK ============ -->
+    <section id="shop" class="sec" style="padding-top:0">
+      <div class="sec-label reveal"><span class="num">04</span><h2>Off the clock</h2></div>
+      <a class="shop reveal" href="woodworking.html">
+        <div>
+          <div class="mono">Woodworking</div>
+          <h3>Things I've made by hand</h3>
+          <p>Tables, boxes, bowls, and a lot of sawdust. Take a look →</p>
+        </div>
+        <span class="saw" aria-hidden="true">🪚</span>
+      </a>
+    </section>
+
     <!-- ============ CONTACT ============ -->
-    <section id="contact">
+    <section id="contact" class="sec">
+      <div class="sec-label reveal"><span class="num">05</span><h2>Contact</h2></div>
       <div class="contact reveal">
-        <div class="sec-head" style="justify-content:center;margin-bottom:24px"><span class="num">04</span><span class="mono">Contact</span></div>
-        <h2>Let's build something.</h2>
+        <h2>Let's build <em>something.</em></h2>
         <p>I'm always up for talking about projects, research, or internship opportunities.</p>
         <div class="cta">
           <button class="btn primary email" id="copyEmail" data-email="you@email.com">you@email.com</button>
@@ -197,7 +227,7 @@
 
     <footer class="mono">
       <span>© <span id="year"></span> Pranav Sristy</span>
-      <span>Built by hand · Hosted on GitHub Pages</span>
+      <span>Press <kbd>⌘</kbd> <kbd>K</kbd> to get around</span>
     </footer>
   </main>
 
