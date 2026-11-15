@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Gloock&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=7" />
+  <link rel="stylesheet" href="style.css?v=9" />
 </head>
 <body>
   <header class="site-header">
@@ -76,12 +76,26 @@
 
     <!-- ============ WOODSHOP ============ -->
     <section id="woodshop" class="reveal">
-      <div class="label"><span>Woodshop</span><a href="woodworking.html">See everything →</a></div>
-      <p class="big">Furniture and small objects, made by hand.</p>
-      <div class="shop-strip">
-        <a href="woodworking.html"><div class="ph">photo</div><span class="cap">Walnut coffee table</span></a>
-        <a href="woodworking.html"><div class="ph">photo</div><span class="cap">Keepsake box</span></a>
-        <a href="woodworking.html"><div class="ph">photo</div><span class="cap">Spalted maple bowl</span></a>
+      <div class="label"><span>Woodshop</span></div>
+      <div class="shop-row">
+      <div>
+        <p class="big">Furniture and small objects, made by hand.</p>
+        <p class="p">When I'm not at a keyboard, I'm usually covered in sawdust. Tables, boxes, turned bowls.</p>
+        <a class="btn ghost" href="woodworking.html">Visit the woodshop →</a>
+      </div>
+      <!-- One frame that rotates through the pieces. To add a photo, replace a slide's
+           <div class="ph">…</div> with <img src="images/woodworking/your-photo.jpg" alt="…">.
+           Add or remove <figure> blocks freely; the counter and progress bars update themselves. -->
+      <a class="shop-show" href="woodworking.html" id="shopShow" aria-label="See the woodshop">
+        <figure class="slide" data-title="Walnut Coffee Table" data-meta="Black walnut · 2026"><div class="ph" style="background:#3a3027">photo</div></figure>
+        <figure class="slide" data-title="Dovetailed Keepsake Box" data-meta="Cherry &amp; maple · 2025"><div class="ph" style="background:#3b2c26">photo</div></figure>
+        <figure class="slide" data-title="Spalted Maple Bowl" data-meta="Spalted maple · 2025"><div class="ph" style="background:#36322a">photo</div></figure>
+        <figure class="slide" data-title="End-Grain Cutting Board" data-meta="Maple, walnut, cherry · 2024"><div class="ph" style="background:#332d27">photo</div></figure>
+        <figure class="slide" data-title="Oak Bookshelf" data-meta="White oak · 2024"><div class="ph" style="background:#38342b">photo</div></figure>
+        <figure class="slide" data-title="Pen Set" data-meta="Assorted hardwoods · 2024"><div class="ph" style="background:#352e2a">photo</div></figure>
+        <div class="show-bars" aria-hidden="true"></div>
+        <div class="show-cap"><div><b id="showTitle"></b><span id="showMeta"></span></div><span class="show-cta"><span id="showCount"></span> pieces →</span></div>
+      </a>
       </div>
     </section>
 
@@ -104,7 +118,7 @@
     </div>
   </footer>
 
-  <script src="scene.js?v=7"></script>
-  <script src="main.js?v=7"></script>
+  <script src="scene.js?v=9"></script>
+  <script src="main.js?v=9"></script>
 </body>
 </html>

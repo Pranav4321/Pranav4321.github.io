@@ -86,6 +86,36 @@
     });
   }
 
+  // ----- Home: woodshop slideshow (one frame that cycles through every piece) -----
+  const show = $('shopShow');
+  if (show) {
+    const slides = [...show.querySelectorAll('.slide')], DUR = 4500;
+    const bars = show.querySelector('.show-bars');
+    bars.innerHTML = slides.map(() => '<i></i>').join('');
+    bars.style.setProperty('--dur', DUR / 1000 + 's');
+    const barEls = [...bars.children];
+    $('showCount').textContent = slides.length;
+    let i = -1, timer = null, left = DUR, startedAt = 0;
+    function go(n) {
+      i = n % slides.length;
+      slides.forEach((s, k) => s.classList.toggle('on', k === i));
+      barEls.forEach((b, k) => { b.classList.toggle('done', k < i); b.classList.remove('on'); });
+      void bars.offsetWidth; barEls[i].classList.add('on');
+      show.classList.add('swap');
+      setTimeout(() => {
+        $('showTitle').textContent = slides[i].dataset.title || '';
+        $('showMeta').textContent = slides[i].dataset.meta || '';
+        show.classList.remove('swap');
+      }, 250);
+      schedule(DUR);
+    }
+    function schedule(ms) { clearTimeout(timer); left = ms; startedAt = performance.now(); timer = setTimeout(() => go(i + 1), ms); }
+    // pause while someone is looking at it, resume where it left off
+    show.addEventListener('mouseenter', () => { clearTimeout(timer); left -= performance.now() - startedAt; show.classList.add('paused'); });
+    show.addEventListener('mouseleave', () => { show.classList.remove('paused'); schedule(Math.max(300, left)); });
+    go(0);
+  }
+
   const year = $('year');
   if (year) year.textContent = new Date().getFullYear();
 })();
