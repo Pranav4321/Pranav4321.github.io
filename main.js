@@ -27,20 +27,7 @@
   addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-  // ----- Inner pages: a faint warm light follows the cursor, a cooler one trails behind it -----
-  if (document.body.classList.contains('inner') && matchMedia('(hover: hover)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    const glow = document.createElement('div');
-    glow.className = 'cursor-glow'; glow.setAttribute('aria-hidden', 'true');
-    document.body.prepend(glow);
-    let tx = innerWidth * .7, ty = innerHeight * .1, wx = tx, wy = ty, cx = tx, cy = ty, on = false;
-    const step = () => {
-      wx += (tx - wx) * .12; wy += (ty - wy) * .12; cx += (tx - cx) * .035; cy += (ty - cy) * .035;
-      glow.style.cssText = `--wx:${wx}px;--wy:${wy}px;--cx:${cx}px;--cy:${cy}px`;
-      on = Math.abs(tx - cx) + Math.abs(ty - cy) > .5;
-      if (on) requestAnimationFrame(step);
-    };
-    addEventListener('pointermove', e => { tx = e.clientX; ty = e.clientY; if (!on) { on = true; requestAnimationFrame(step); } }, { passive: true });
-  }
+  // (the cursor ribbon lives in ribbon.js)
 
   // ----- Fade things in as they scroll into view -----
   const io = new IntersectionObserver(entries => entries.forEach(e => {

@@ -1,8 +1,8 @@
 // =========================================================
 // The ink landscape on the landing page.
-// Pen-line mountain ridges on paper. Moving the cursor over a
-// ridge slowly reshapes the land around it into a new one, and
-// the new shape stays until you reshape it again.
+// Pen-line mountain ridges on paper. Where the cursor ribbon
+// (ribbon.js) sweeps across a ridge, the land slowly reshapes into
+// a new one, and the new shape stays until you reshape it again.
 // =========================================================
 (function () {
   const cv = document.querySelector('canvas.ink');
@@ -39,7 +39,7 @@
   ].map((R, i) => ({ ...R, seed: 7 + i * 6 }));
 
   let z = [], zt = [], ys = [], tower = null;
-  const env = X => .3 + .7 * sm(W * .15, W * .85, X); // taller toward the right, quiet behind the text
+  const env = X => .14 + .86 * sm(W * .25, W * .92, X); // taller toward the right, low and quiet behind the text
 
   function heights(i) {
     const R = ridges[i], out = ys[i];
@@ -118,10 +118,34 @@
     if (moving) requestAnimationFrame(tick); else running = false;
   }
   if (!reduce) {
-    addEventListener('pointermove', e => { const r = cv.getBoundingClientRect(); push(e.clientX - r.left, e.clientY - r.top); }, { passive: true });
+    // the ribbon (ribbon.js) reports where its head is each frame, so the land bends
+    // along the ribbon's looping path rather than the raw cursor
+    addEventListener('ribbonmove', e => push(e.detail.x, e.detail.y));
     document.addEventListener('pointerleave', () => { lx = ly = null; });
   }
 
   let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(size, 120); });
   size();
+
+  // ---------- the greeting settles in, letter by letter ----------
+  // Unsettled letters flicker through map and survey marks (peaks, contours, water)
+  // before landing on the real character, left to right.
+  const hello = document.getElementById('hello');
+  if (hello && !reduce) {
+    const text = hello.textContent, marks = '∧⌒∿≈△~^⋀◠'.split('');
+    const start = performance.now() + 250;
+    hello.setAttribute('aria-label', text);
+    (function settle() {
+      const now = performance.now(), t = now - start;
+      let html = '', done = true;
+      [...text].forEach((ch, i) => {
+        if (ch === ' ' || t > i * 60 + 320) { html += ch; return; }
+        done = false;
+        const m = marks[(Math.floor(now / 70) + i * 7) % marks.length], tint = (i + Math.floor(now / 140)) % 5;
+        html += `<span class="g${tint === 0 ? ' b' : tint === 3 ? ' m' : ''}" aria-hidden="true">${m}</span>`;
+      });
+      hello.innerHTML = html;
+      if (!done) requestAnimationFrame(settle);
+    })();
+  }
 })();

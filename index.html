@@ -7,8 +7,8 @@
   <meta name="description" content="Pranav Sristy: Biomedical & Computer Engineering at Johns Hopkins. Robotics, tactile sensing, machine learning, and woodworking." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500&family=Geist:wght@400..600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=14" />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;1,8..60,400&family=Geist:wght@400..600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css?v=16" />
 </head>
 <body class="landing">
   <header class="site-header">
@@ -16,8 +16,6 @@
       <span class="name">Pranav Sristy</span>
       <nav>
         <a href="experience.html">Experience</a><a href="projects.html">Projects</a><a href="woodworking.html">Woodshop</a>
-        <span class="sep" aria-hidden="true"></span>
-        <a class="ext" href="resume.pdf" target="_blank">Résumé</a><a class="ext" href="https://github.com/yourusername" target="_blank" rel="noopener">GitHub</a><a class="ext" href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener">LinkedIn</a>
       </nav>
     </div>
   </header>
@@ -26,14 +24,22 @@
   <main class="ink-hero">
     <canvas class="ink" aria-hidden="true"></canvas>
     <div class="wrap intro">
-      <h1 class="fade">Hey, I'm Pranav.</h1>
-      <p class="fade" style="animation-delay:.1s">Biomedical and Computer Engineering at Johns Hopkins.</p>
-      <p class="fade" style="animation-delay:.18s">Building tactile sensors for robot hands at the <a href="experience.html#sciphy">Sci-Phy Lab</a>.</p>
-      <p class="fade" style="animation-delay:.26s">More on my <a href="experience.html">research</a>, <a href="projects.html">projects</a>, and <a href="woodworking.html">woodshop</a>.</p>
+      <div class="hello fade">
+        <!-- profile photo: replace the initials with <img src="images/profile.jpg" alt="Pranav Sristy"> -->
+        <span class="avatar" aria-hidden="true">PS</span>
+        <h1 id="hello">Hey, I'm Pranav.</h1>
+      </div>
+      <p class="fade" style="animation-delay:.1s">Currently Building tactile sensors for dexterous robot hands at the <a href="experience.html#sciphy">Sci-Phy Lab</a>, JHU Institute for Robotics.</p>
+      <p class="fade" style="animation-delay:.16s">Biomedical + Computer Engineering @ Johns Hopkins.</p>
+      <p class="fade" style="animation-delay:.22s">I built a synthetic CT pipeline with diffusion models for robotic spine surgery at the <a href="experience.html#arcade">ARCADE Lab</a>.</p>
+      <p class="fade" style="animation-delay:.28s">I've also designed medical devices at <a href="experience.html#design-team">Johns Hopkins Medicine</a>, and built computer vision tools for eye surgery at <a href="experience.html#cu-medicine">CU School of Medicine</a></p>
+      <p class="fade" style="animation-delay:.34s">Off the clock, I'm making furniture in the <a href="woodworking.html">woodshop</a> or out hooping.</p>
+      <p class="links fade" style="animation-delay:.4s"><a href="resume.pdf" target="_blank">Résumé</a><a href="https://github.com/yourusername" target="_blank" rel="noopener">GitHub</a><a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener">LinkedIn</a></p>
     </div>
     <div class="wrap colophon"><span>Baltimore, Maryland</span><span>2026</span></div>
   </main>
 
-  <script src="scene.js?v=14"></script>
+  <script src="ribbon.js?v=16"></script>
+  <script src="scene.js?v=16"></script>
 </body>
 </html>
