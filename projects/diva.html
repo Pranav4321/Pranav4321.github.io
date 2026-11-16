@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>First Project · Pranav Sristy</title>
-  <meta name="description" content="First Project, a project by Pranav Sristy." />
+  <title>DIVA · Pranav Sristy</title>
+  <meta name="description" content="DIVA: a wearable that turns stereo depth into touch and YOLO object detection into spatial audio, so blind and low-vision users can feel and hear what's around them." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;1,8..60,400&family=Geist:wght@400..600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../style.css?v=17" />
+  <link rel="stylesheet" href="../style.css?v=20" />
 </head>
 <body class="inner">
   <header class="site-header">
@@ -21,61 +21,141 @@
   <main><div class="wrap">
     <div class="page-head">
       <a class="back fade" href="../projects.html"><span>←</span> All projects</a>
-      <h1 class="fade" style="animation-delay:.05s">First Project</h1>
-      <p class="fade" style="animation-delay:.1s">One-sentence pitch: what this is and why someone should care.</p>
+      <h1 class="fade" style="animation-delay:.05s">DIVA</h1>
+      <p class="fade" style="animation-delay:.1s">Depth-intelligent navigation for the visually impaired. A wearable that turns stereo depth into touch and object detection into spatial audio, so you can feel where things are and hear what they are.</p>
     </div>
 
+    <!-- TODO: fill in your role and the timeline -->
     <div class="facts reveal">
-      <div><span class="meta">Role</span><b>Lead engineer</b></div>
-      <div><span class="meta">Timeline</span><b>Jan – Apr 2026</b></div>
+      <div><span class="meta">Role</span><b>Co-developer</b></div>
+      <div><span class="meta">Timeline</span><b>2023</b></div>
       <div><span class="meta">Team</span><b>3 people</b></div>
-      <div><span class="meta">Links</span><b><a href="https://github.com/yourusername" target="_blank" rel="noopener">GitHub ↗</a></b></div>
+      <div><span class="meta">Links</span><b><a href="https://isef.net/project/enbm060t-depth-intelligent-navigation-for-visually-impaired" target="_blank" rel="noopener">ISEF, Embedded Systems ↗</a></b></div>
     </div>
-    <p class="stack reveal">Python · PyTorch · ROS 2</p>
+    <p class="stack reveal">OAK-D Lite · Stereo vision · YOLO · COCO · Raspberry Pi · ESP32 · Relays · Bluetooth · HRTF spatial audio</p>
 
-    <!-- Cover image or demo video. Put files in images/project-1/ then use:
-         <img src="../images/project-1/cover.jpg" alt="">   or   <video src="../images/project-1/demo.mp4" autoplay muted loop playsinline></video> -->
-    <div class="cover reveal"><div class="ph">cover image or demo video</div></div>
+    <!-- The device, drawn in contour lines (diva-model.js). Drag to turn it; hover a part to find it. -->
+    <section class="model reveal" aria-label="Interactive model of DIVA">
+      <div class="model-stage">
+        <canvas id="divaModel" aria-hidden="true"></canvas>
+        <div class="model-pins" id="divaPins"></div>
+        <span class="model-hint">Drag to turn</span>
+      </div>
+      <ol class="model-parts" id="divaParts">
+        <li data-part="stereo"><b>OAK-D Lite</b><span>Stereoscopic depth camera. Disparity between its two lenses gives a dense depth map.</span></li>
+        <li data-part="rgb"><b>RGB camera</b><span>Feeds a lightweight YOLO detector trained on COCO, 80 classes.</span></li>
+        <li data-part="ears"><b>Earbuds</b><span>HRTF spatial audio. Labels play from the object's direction.</span></li>
+        <li data-part="pi"><b>Raspberry Pi</b><span>Depth processing and YOLO inference. Builds the 5×5 grid and sends it over Bluetooth.</span></li>
+        <li data-part="lcd"><b>LCD interface</b><span>Shares the chest case with the Pi. Sets the distance threshold and audio.</span></li>
+        <li data-part="hand"><b>Tactile array</b><span>25 electromagnetic actuators, switched by an ESP32 through relays.</span></li>
+      </ol>
+    </section>
 
     <div class="article">
       <aside class="toc">
         <a href="#overview">Overview</a>
-        <a href="#build">The build</a>
-        <a href="#challenges">Challenges</a>
-        <a href="#results">Results</a>
+        <a href="#how">How it works</a>
+        <a href="#depth">Depth sensing</a>
+        <a href="#tactile">Tactile feedback</a>
+        <a href="#detection">Detection and audio</a>
+        <a href="#evaluation">Evaluation</a>
         <a href="#gallery">Gallery</a>
       </aside>
 
       <div class="prose">
         <h2 id="overview" class="reveal">Overview</h2>
-        <p class="reveal">What problem were you solving, and why did you pick it? Set the scene in two or three sentences so someone skimming knows exactly what they're looking at.</p>
-        <p class="reveal">What were the goals or constraints? <strong>Budget, size, speed, accuracy</strong>: whatever made it hard.</p>
+        <p class="reveal">The white cane only reads the ground a step ahead, and the electronic aids that do more cost more than most people who need them can pay. DIVA is built for about <strong>$278</strong>.</p>
+        <p class="reveal">You wear a headband camera and hold a small pad. Anything close enough to walk into rises as a bump on the pad, in the same spot it sits in front of you. Earbuds name the objects around you, and each name comes from the object's direction. It's <strong>sensory substitution</strong>: sight is handed to touch and hearing.</p>
 
-        <h2 id="build" class="reveal">The build</h2>
-        <p class="reveal">Walk through how it works: the architecture, the key design decisions, and why you made them.</p>
-        <figure class="reveal"><div class="frame"><div class="ph">diagram / CAD / screenshot</div><!-- <img src="../images/project-1/diagram.jpg" alt=""> --></div><figcaption>Fig. 1: Caption describing what's shown.</figcaption></figure>
-        <ul class="reveal">
-          <li>Key component or feature #1, and what it does.</li>
-          <li>Key component or feature #2.</li>
-          <li>Key component or feature #3.</li>
-        </ul>
+        <h2 id="how" class="reveal">How it works</h2>
+        <p class="reveal">Two paths run off the same headband. One turns depth into touch, and the other turns objects into sound.</p>
+        <!-- the pipeline, step by step; the same room in every picture (generated by flow_gen.py) -->
+        <div class="flow reveal">
+          <div class="flow-row">
+            <h3>Touch <span>where things are</span></h3>
+            <ol>
+              <li class="step"><div class="art"><svg viewBox="0 0 160 120" role="img" aria-label="Left and right camera views; the near plant shifts the most"><rect x=".5" y="12.5" width="77" height="57.5" rx="3" fill="none" stroke="currentColor" stroke-opacity=".3"/><rect x="82.5" y="12.5" width="77" height="57.5" rx="3" fill="none" stroke="currentColor" stroke-opacity=".3"/>
+<svg x="0" y="12" width="78" height="58.5" viewBox="0 0 160 120"><g fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+<g transform="translate(0 0)"><path d="M24 14H136V80H24Z M24 80L4 116 M136 80L156 116 M24 14L4 2 M136 14L156 2 M116 80V42H130V80"/></g>
+<g transform="translate(0 0)"><path d="M37 58V77 M34 77H54 M35 77V93 M53 77V93 M37 58H49V77"/></g>
+<g transform="translate(0 0)"><path d="M62 74H102 M64 74V97 M100 74V97 M68 74V91 M96 74V91"/></g>
+<g transform="translate(0 0)"><path d="M112 95H131L128 112H115Z M121.5 95C116 86 110 80 107 70 M121.5 95C120 84 121 74 124 62 M121.5 95C128 86 133 80 138 71 M121.5 95C116 89 111 86 106 86 M121.5 95C127 90 132 88 137 88"/></g></g></svg><svg x="82" y="12" width="78" height="58.5" viewBox="0 0 160 120"><g fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+<g transform="translate(-1 0)"><path d="M24 14H136V80H24Z M24 80L4 116 M136 80L156 116 M24 14L4 2 M136 14L156 2 M116 80V42H130V80"/></g>
+<g transform="translate(-3 0)"><path d="M37 58V77 M34 77H54 M35 77V93 M53 77V93 M37 58H49V77"/></g>
+<g transform="translate(-5 0)"><path d="M62 74H102 M64 74V97 M100 74V97 M68 74V91 M96 74V91"/></g>
+<g transform="translate(-12 0)"><path d="M112 95H131L128 112H115Z M121.5 95C116 86 110 80 107 70 M121.5 95C120 84 121 74 124 62 M121.5 95C128 86 133 80 138 71 M121.5 95C116 89 111 86 106 86 M121.5 95C127 90 132 88 137 88"/></g></g></svg><text x="4" y="9" class="lbl">left</text><text x="86" y="9" class="lbl">right</text>
+<g class="shift"><path d="M60 96H52 M52 96l3 -2.5 M52 96l3 2.5"/><text x="64" y="99" class="lbl">near things shift more</text></g>
+<path d="M60 64 L60 90" stroke="currentColor" stroke-opacity=".25" stroke-dasharray="2 2"/></svg></div><b>See in stereo</b><span class="tech">OAK-D Lite</span><span>Two lenses, two views. Near things shift more.</span></li>
+              <li class="step"><div class="art"><svg viewBox="0 0 160 120" role="img" aria-label="Depth map: the plant is brightest because it is nearest"><g><defs><linearGradient id="floorG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2d3b60"/><stop offset="1" stop-color="#7684a4"/></linearGradient></defs>
+<rect width="160" height="120" fill="#1e2c51"/><path d="M24 80H136L160 120H0Z" fill="url(#floorG)"/><rect x="24" y="14" width="112" height="66" fill="#16244a"/>
+<rect x="116" y="42" width="14" height="38" fill="#223055"/>
+<g fill="#637192"><rect x="36" y="57" width="13" height="20" rx="1"/><rect x="33" y="76" width="22" height="3"/><rect x="34" y="78" width="2" height="15"/><rect x="52" y="78" width="2" height="15"/></g>
+<g fill="#7684a4"><rect x="61" y="72.5" width="42" height="3.5"/><rect x="63" y="75" width="2.5" height="22"/><rect x="98.5" y="75" width="2.5" height="22"/></g>
+<g fill="none" stroke="#c3d1ed" stroke-width="3.2" stroke-linecap="round"><path d="M121.5 95C116 86 110 80 107 70 M121.5 95C120 84 121 74 124 62 M121.5 95C128 86 133 80 138 71 M121.5 95C116 89 111 86 106 86 M121.5 95C127 90 132 88 137 88"/></g>
+<path d="M112 95H131L128 112H115Z" fill="#ccdaf6"/></g></svg></div><b>Measure depth</b><span class="tech">Disparity → depth</span><span>That shift becomes a distance per pixel.</span></li>
+              <li class="step"><div class="art"><svg viewBox="0 0 160 120" role="img" aria-label="Depth averaged into a 5 by 5 grid, near cells outlined as blocked"><rect x="0" y="0" width="32" height="24" fill="#1c2a4f"/><rect x="32" y="0" width="32" height="24" fill="#1c2a4f"/><rect x="64" y="0" width="32" height="24" fill="#1c2a4f"/><rect x="96" y="0" width="32" height="24" fill="#1e2c51"/><rect x="128" y="0" width="32" height="24" fill="#1e2c51"/><rect x="0" y="24" width="32" height="24" fill="#223055"/><rect x="32" y="24" width="32" height="24" fill="#253358"/><rect x="64" y="24" width="32" height="24" fill="#233157"/><rect x="96" y="24" width="32" height="24" fill="#233157"/><rect x="128" y="24" width="32" height="24" fill="#29375c"/><rect x="0" y="48" width="32" height="24" fill="#2d3b60"/><rect x="32" y="48" width="32" height="24" fill="#5f6d8f"/><rect x="64" y="48" width="32" height="24" fill="#39476b"/><rect x="96" y="48" width="32" height="24" fill="#7684a4"/><rect x="128" y="48" width="32" height="24" fill="#95a3c1"/><rect x="130.5" y="50.5" width="27" height="19" rx="2" fill="none" class="hot-line"/><rect x="0" y="72" width="32" height="24" fill="#3c4a6e"/><rect x="32" y="72" width="32" height="24" fill="#677596"/><rect x="64" y="72" width="32" height="24" fill="#7684a4"/><rect x="96" y="72" width="32" height="24" fill="#b7c5e2"/><rect x="98.5" y="74.5" width="27" height="19" rx="2" fill="none" class="hot-line"/><rect x="128" y="72" width="32" height="24" fill="#a0aecc"/><rect x="130.5" y="74.5" width="27" height="19" rx="2" fill="none" class="hot-line"/><rect x="0" y="96" width="32" height="24" fill="#637192"/><rect x="32" y="96" width="32" height="24" fill="#677596"/><rect x="64" y="96" width="32" height="24" fill="#6c7a9b"/><rect x="96" y="96" width="32" height="24" fill="#bfcde9"/><rect x="98.5" y="98.5" width="27" height="19" rx="2" fill="none" class="hot-line"/><rect x="128" y="96" width="32" height="24" fill="#7a88a8"/><g stroke="#0a0a0b" stroke-width="1.2"><path d="M32 0V120"/><path d="M64 0V120"/><path d="M96 0V120"/><path d="M128 0V120"/><path d="M0 24H160"/><path d="M0 48H160"/><path d="M0 72H160"/><path d="M0 96H160"/></g></svg></div><b>Grid and threshold</b><span class="tech">Raspberry Pi</span><span>Average 5×5 cells; anything too close is blocked.</span></li>
+              <li class="step"><div class="art"><svg viewBox="0 0 160 120" role="img" aria-label="Tactile array with the blocked cells raised"><rect x="38" y="18" width="84" height="84" rx="12" fill="none" stroke="currentColor"/><circle cx="50" cy="30" r="3.4" fill="none" stroke="currentColor" stroke-opacity=".5"/><circle cx="65" cy="30" r="3.4" fill="none" stroke="currentColor" stroke-opacity=".5"/><circle cx="80" cy="30" r="3.4" fill="none" stroke="currentColor" stroke-opacity=".5"/><circle cx="95" cy="30" r="3.4" fill="none" stroke="currentColor" stroke-opacity=".5"/><circle cx="110" cy="30" r="3.4" fill="none" stroke="currentColor" stroke-opacity=".5"/><circle cx="50" cy="45" r="3.4" fill="none" stroke="currentColor" stroke-opacity=".5"/><circle cx="65" cy="45" r="3.4" fill="none" stroke="currentColor" stroke-opacity=".5"/><circle cx="80" cy="45" r="3.4" fill="none" stroke="currentColor" stroke-opacity=".5"/><circle cx="95" cy="45" r="3.4" fill="none" stroke="currentColor" stroke-opacity=".5"/><circle cx="110" cy="45" r="3.4" fill="none" stroke="currentColor" stroke-opacity=".5"/><circle cx="50" cy="60" r="3.4" fill="none" stroke="currentColor" stroke-opacity=".5"/><circle cx="65" cy="60" r="3.4" fill="none" stroke="currentColor" stroke-opacity=".5"/><circle cx="80" cy="60" r="3.4" fill="none" stroke="currentColor" stroke-opacity=".5"/><circle cx="95" cy="60" r="3.4" fill="none" stroke="currentColor" stroke-opacity=".5"/><circle cx="110" cy="60" r="7.5" class="hot-ring"/><circle cx="110" cy="60" r="4.6" class="hot"/><circle cx="50" cy="75" r="3.4" fill="none" stroke="currentColor" stroke-opacity=".5"/><circle cx="65" cy="75" r="3.4" fill="none" stroke="currentColor" stroke-opacity=".5"/><circle cx="80" cy="75" r="3.4" fill="none" stroke="currentColor" stroke-opacity=".5"/><circle cx="95" cy="75" r="7.5" class="hot-ring"/><circle cx="95" cy="75" r="4.6" class="hot"/><circle cx="110" cy="75" r="7.5" class="hot-ring"/><circle cx="110" cy="75" r="4.6" class="hot"/><circle cx="50" cy="90" r="3.4" fill="none" stroke="currentColor" stroke-opacity=".5"/><circle cx="65" cy="90" r="3.4" fill="none" stroke="currentColor" stroke-opacity=".5"/><circle cx="80" cy="90" r="3.4" fill="none" stroke="currentColor" stroke-opacity=".5"/><circle cx="95" cy="90" r="7.5" class="hot-ring"/><circle cx="95" cy="90" r="4.6" class="hot"/><circle cx="110" cy="90" r="3.4" fill="none" stroke="currentColor" stroke-opacity=".5"/></svg></div><b>Feel it</b><span class="tech">Bluetooth → ESP32 → relays</span><span>Blocked cells lift as bumps on the palm.</span></li>
+            </ol>
+          </div>
+          <div class="flow-row">
+            <h3>Sound <span>what they are</span></h3>
+            <ol>
+              <li class="step"><div class="art"><svg viewBox="0 0 160 120" role="img" aria-label="Bounding boxes around the chair, table and plant"><g fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+<g transform="translate(0 0)"><path d="M24 14H136V80H24Z M24 80L4 116 M136 80L156 116 M24 14L4 2 M136 14L156 2 M116 80V42H130V80"/></g>
+<g transform="translate(0 0)"><path d="M37 58V77 M34 77H54 M35 77V93 M53 77V93 M37 58H49V77"/></g>
+<g transform="translate(0 0)"><path d="M62 74H102 M64 74V97 M100 74V97 M68 74V91 M96 74V91"/></g>
+<g transform="translate(0 0)"><path d="M112 95H131L128 112H115Z M121.5 95C116 86 110 80 107 70 M121.5 95C120 84 121 74 124 62 M121.5 95C128 86 133 80 138 71 M121.5 95C116 89 111 86 106 86 M121.5 95C127 90 132 88 137 88"/></g></g><rect x="32" y="55" width="25" height="40" class="box"/><text x="33.5" y="52.5" class="lbl">chair</text><rect x="59" y="70" width="46" height="29" class="box"/><text x="60.5" y="67.5" class="lbl">dining table</text><rect x="104" y="59" width="36" height="55" class="box"/><text x="105.5" y="56.5" class="lbl">potted plant</text></svg></div><b>Detect</b><span class="tech">YOLO on the RGB frame</span><span>Finds and names objects, 80 COCO classes.</span></li>
+              <li class="step"><div class="art"><svg viewBox="0 0 160 120" role="img" aria-label="Each object tagged with its distance"><g opacity="0.85"><defs><linearGradient id="floorG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2d3b60"/><stop offset="1" stop-color="#7684a4"/></linearGradient></defs>
+<rect width="160" height="120" fill="#1e2c51"/><path d="M24 80H136L160 120H0Z" fill="url(#floorG)"/><rect x="24" y="14" width="112" height="66" fill="#16244a"/>
+<rect x="116" y="42" width="14" height="38" fill="#223055"/>
+<g fill="#637192"><rect x="36" y="57" width="13" height="20" rx="1"/><rect x="33" y="76" width="22" height="3"/><rect x="34" y="78" width="2" height="15"/><rect x="52" y="78" width="2" height="15"/></g>
+<g fill="#7684a4"><rect x="61" y="72.5" width="42" height="3.5"/><rect x="63" y="75" width="2.5" height="22"/><rect x="98.5" y="75" width="2.5" height="22"/></g>
+<g fill="none" stroke="#c3d1ed" stroke-width="3.2" stroke-linecap="round"><path d="M121.5 95C116 86 110 80 107 70 M121.5 95C120 84 121 74 124 62 M121.5 95C128 86 133 80 138 71 M121.5 95C116 89 111 86 106 86 M121.5 95C127 90 132 88 137 88"/></g>
+<path d="M112 95H131L128 112H115Z" fill="#ccdaf6"/></g><circle cx="44" cy="75" r="2.6" class="dot"/><text x="44" y="69" text-anchor="middle" class="lbl strong">2.6 m</text><circle cx="82" cy="85" r="2.6" class="dot"/><text x="82" y="79" text-anchor="middle" class="lbl strong">2.1 m</text><circle cx="121" cy="90" r="2.6" class="dot"/><text x="121" y="84" text-anchor="middle" class="lbl strong">0.9 m</text></svg></div><b>Locate</b><span class="tech">Depth lookup</span><span>Each object's average point gets a distance.</span></li>
+              <li class="step"><div class="art"><svg viewBox="0 0 160 120" role="img" aria-label="The label is heard from the plant's direction"><g fill="none" stroke="currentColor" stroke-linecap="round">
+<circle cx="66" cy="84" r="15"/><path d="M66 69l-3 -4 M66 69l3 -4" stroke-opacity=".6"/>
+<rect x="48" y="79" width="4" height="10" rx="2" class="hotfill"/><rect x="80" y="79" width="4" height="10" rx="2" class="hotfill"/>
+<g transform="translate(124 30)"><path d="M-7 4H7L5 14H-5Z"/><path d="M0 4C-4 -2 -7 -5 -9 -11 M0 4C0 -3 1 -8 3 -13 M0 4C4 -2 7 -5 10 -10"/></g>
+<g class="wave"><path d="M100 50 A 22 22 0 0 0 108 62"/><path d="M93 44 A 32 32 0 0 0 104 70"/><path d="M86 38 A 42 42 0 0 0 99 78"/></g>
+</g><text x="124" y="58" text-anchor="middle" class="lbl strong">“potted plant”</text></svg></div><b>Say it</b><span class="tech">HRTF spatial audio</span><span>The name plays from the object's direction.</span></li>
+            </ol>
+          </div>
+        </div>
 
-        <h2 id="challenges" class="reveal">Challenges</h2>
-        <p class="reveal">The most interesting thing that went wrong and how you figured it out. This is the part that shows how you think.</p>
+
+        <h2 id="depth" class="reveal">Depth sensing</h2>
+        <p class="reveal">Like two eyes, the <strong>OAK-D Lite</strong> sees the room from two points a few centimetres apart. Near objects shift more between the two images than far ones, and the camera turns that shift (disparity) into a distance for every pixel.</p>
+        <p class="reveal">The <strong>Raspberry Pi</strong> splits each depth frame into a <strong>5×5 grid</strong> and averages each cell into one number. Cells closer than the wearer's threshold, set on the LCD, are marked blocked. The Pi and LCD share one case on the chest, cabled to the headband.</p>
+        <!-- Put the camera clips or stills in images/diva/ and swap each placeholder for
+             <img src="../images/diva/rgb.jpg" alt="">  or  <video src="../images/diva/rgb.mp4" autoplay muted loop playsinline></video> -->
         <div class="duo reveal">
-          <figure><div class="frame"><div class="ph">before</div></div><figcaption>Before</figcaption></figure>
-          <figure><div class="frame"><div class="ph">after</div></div><figcaption>After</figcaption></figure>
+          <figure><div class="frame"><div class="ph">RGB camera view</div></div><figcaption>RGB stream</figcaption></figure>
+          <figure><div class="frame"><div class="ph">depth camera view</div></div><figcaption>Stereo depth map, same scene</figcaption></figure>
         </div>
 
-        <h2 id="results" class="reveal">Results</h2>
-        <p class="reveal">What did it end up doing? Numbers, demos, awards, or what you'd do differently next time.</p>
+        <h2 id="tactile" class="reveal">Tactile feedback</h2>
+        <p class="reveal">The grid goes over <strong>Bluetooth</strong> to the hand unit, a separate pad of 25 electromagnetic actuators under silicone. It maps 1:1 onto the palm, so top-left in front of you is top-left on your hand.</p>
+        <p class="reveal">An <strong>ESP32</strong> receives each grid and switches the actuators through <strong>relays</strong>, and a powered cell pushes up a bump you can feel. Over three builds the whole system went from 6.84 lb to 2.78 lb, and the parts came to $149 for the stereo camera, $73 for the controller and $56 for the tactile array.</p>
+
+        <h2 id="detection" class="reveal">Detection and audio</h2>
+        <p class="reveal">Touch tells you where something is, and sound tells you what it is. A <strong>lightweight YOLO</strong> model trained on <strong>COCO</strong> runs on the RGB frame and finds objects across 80 classes. The average point of each detection is looked up in the depth map to get the object's distance and direction.</p>
+        <p class="reveal">The label is then rendered with <strong>head-related transfer functions</strong> (HRTFs), which shape the sound the way your head and ears would. "Chair" heard on your left means the chair is on your left.</p>
+
+        <h2 id="evaluation" class="reveal">Evaluation</h2>
+        <ul class="reveal">
+          <li><strong>Depth accuracy:</strong> three objects at 18 distances from 0.5 to 5 m gave a 3.4% mean error.</li>
+          <li><strong>Reading the pad:</strong> blind participants identified which of 25 cells fired 21.8 times out of 25 on average, and blindfolded sighted participants 17.7.</li>
+          <li><strong>Navigation:</strong> 18 participants (9 blind, 9 blindfolded) crossed a ten-obstacle indoor course with no aid, with a white cane, and with DIVA. DIVA runs were also about 10 s faster than cane runs.</li>
+        </ul>
         <div class="stats reveal">
-          <div><b>30%</b><span>faster than baseline</span></div>
-          <div><b>$120</b><span>total cost</span></div>
-          <div><b>1st</b><span>place at a hackathon</span></div>
+          <div><b>7.7</b><span>collisions per run, no aid</span></div>
+          <div><b>3.0</b><span>with a white cane</span></div>
+          <div><b>1.2</b><span>with DIVA</span></div>
         </div>
+        <p class="reveal">Testing was indoors with small groups. Next steps are outdoor use, a finer tactile grid, battery life, and GPS route guidance.</p>
 
         <h2 id="gallery" class="reveal">Gallery</h2>
+        <!-- Photos go in images/diva/. Swap a placeholder for <img src="../images/diva/build-1.jpg" alt="describe the photo"> -->
         <div class="duo reveal">
           <figure><div class="frame"><div class="ph">photo</div></div></figure>
           <figure><div class="frame"><div class="ph">photo</div></div></figure>
@@ -97,7 +177,8 @@
       <span><a href="https://github.com/yourusername" target="_blank" rel="noopener">GitHub</a> · <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener">LinkedIn</a> · <a href="../resume.pdf" target="_blank">Résumé</a> · <a href="mailto:you@email.com">Email</a></span>
     </div>
   </footer>
-  <script src="../ribbon.js?v=17"></script>
-  <script src="../main.js?v=17"></script>
+  <script src="../ribbon.js?v=20"></script>
+  <script src="../main.js?v=20"></script>
+  <script src="diva-model.js?v=20"></script>
 </body>
 </html>
