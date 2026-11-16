@@ -7,21 +7,20 @@
   <meta name="description" content="Experience and education of Pranav Sristy." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Gloock&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=9" />
+  <link href="https://fonts.googleapis.com/css2?family=Gloock&family=Schibsted+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css?v=10" />
 </head>
 <body>
   <header class="site-header">
     <div class="wrap">
       <a class="name" href="index.html">Pranav Sristy</a>
-      <nav><a href="index.html#about" class="hide-sm">About</a><a href="index.html#work">Work</a><a href="experience.html" class="active">Experience</a><a href="woodworking.html">Woodshop</a><a href="index.html#contact" class="hide-sm">Contact</a><span class="when" id="when">Baltimore</span></nav>
+      <nav><a href="index.html#about" class="hide-sm">About</a><a href="index.html#projects">Projects</a><a href="experience.html" class="active">Experience</a><a href="woodworking.html">Woodshop</a><a href="index.html#contact" class="hide-sm">Contact</a><span class="when" id="when">Baltimore</span></nav>
     </div>
   </header>
   <section class="scene-hero short">
     <canvas class="scene" aria-hidden="true"></canvas>
     <div class="hero-text"><div class="wrap">
       <a class="back fade" href="index.html#experience"><span>←</span> Back home</a>
-      <span class="eyebrow fade">Experience &amp; education</span>
       <h1 class="fade" style="animation-delay:.1s">Where I've worked</h1>
       <p class="fade" style="animation-delay:.2s">A closer look at each role: what the team does, what I worked on, and what I used.</p>
     </div></div>
@@ -32,7 +31,7 @@
     <!-- ============ ROLE ============
          Copy an <article> to add another. The id must match the link on the home page (index.html). -->
     <article class="role reveal" id="arcade">
-      <div class="side"><div class="logo"><img src="images/arcade_img.png" alt="ARCADE Lab"></div><span class="mono"><span class="now">● Current</span><br>Feb – Sep 2026<br>Baltimore, MD</span></div>
+      <div class="side"><div class="logo"><img src="images/arcade_img.png" alt="ARCADE Lab"></div><span class="meta"><span class="now">● Current</span><br>Feb – Sep 2026<br>Baltimore, MD</span></div>
       <div>
         <h2>ARCADE Lab, Johns Hopkins University</h2>
         <div class="title">ML Research Assistant</div>
@@ -42,12 +41,12 @@
           <li>Add a result: a number, a demo, a poster, or a paper in progress.</li>
           <li>Add what you've learned or a tool you built that others use.</li>
         </ul>
-        <div class="skills"><span class="tag">Python</span><span class="tag">PyTorch</span><span class="tag">Generative AI</span><span class="tag">Robotic surgery</span></div>
+        <p class="stack">Python · PyTorch · Generative AI · Robotic surgery</p>
       </div>
     </article>
 
     <article class="role reveal" id="design-team">
-      <div class="side"><div class="logo">DT</div><span class="mono">Jan – Aug 2026<br>Baltimore, MD</span></div>
+      <div class="side"><div class="logo">DT</div><span class="meta">Jan – Aug 2026<br>Baltimore, MD</span></div>
       <div>
         <h2>Design Team, Johns Hopkins School of Medicine</h2>
         <div class="title">R&amp;D Engineer</div>
@@ -57,12 +56,12 @@
           <li>Add a result: a prototype, a test outcome, or clinician feedback.</li>
           <li>Add how you worked with the team (clinicians, engineers, reviews).</li>
         </ul>
-        <div class="skills"><span class="tag">Medical devices</span><span class="tag">CAD</span><span class="tag">Prototyping</span></div>
+        <p class="stack">Medical devices · CAD · Prototyping</p>
       </div>
     </article>
 
     <article class="role reveal" id="jhu">
-      <div class="side"><div class="logo">JHU</div><span class="mono">Aug 2024 – May 2028<br>Baltimore, MD</span></div>
+      <div class="side"><div class="logo">JHU</div><span class="meta">Aug 2024 – May 2028<br>Baltimore, MD</span></div>
       <div>
         <h2>Johns Hopkins University</h2>
         <div class="title">B.S. Biomedical Engineering &amp; Computer Engineering</div>
@@ -76,7 +75,7 @@
     </article>
 
     <div class="reveal" style="padding:24px 0 40px;display:flex;gap:10px;flex-wrap:wrap">
-      <a class="btn" href="index.html#work">See my projects →</a>
+      <a class="btn" href="index.html#projects">See my projects →</a>
       <a class="btn ghost" href="resume.pdf" target="_blank">Résumé ↗</a>
     </div>
   </div></main>
@@ -89,7 +88,7 @@
     </div>
   </footer>
 
-  <script src="scene.js?v=9"></script>
-  <script src="main.js?v=9"></script>
+  <script src="scene.js?v=10"></script>
+  <script src="main.js?v=10"></script>
 </body>
 </html>

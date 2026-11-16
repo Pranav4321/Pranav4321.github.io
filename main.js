@@ -31,7 +31,13 @@
   const io = new IntersectionObserver(entries => entries.forEach(e => {
     if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
   }), { threshold: .12 });
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  document.querySelectorAll('.reveal').forEach(el => {
+    // siblings that reveal together (project rows, gallery pieces) settle one after another
+    const sibs = [...el.parentElement.children].filter(c => c.classList.contains('reveal'));
+    const k = sibs.indexOf(el);
+    if (sibs.length > 1 && k > 0) el.style.animationDelay = Math.min(k, 6) * 40 + 'ms';
+    io.observe(el);
+  });
 
   // ----- Copy email -----
   const copyBtn = $('copyEmail');
@@ -39,6 +45,7 @@
     const email = copyBtn.dataset.email;
     try { await navigator.clipboard.writeText(email); } catch (e) { location.href = 'mailto:' + email; return; }
     const c = $('copied'); c.classList.add('show'); setTimeout(() => c.classList.remove('show'), 1800);
+    copyBtn.classList.remove('pulse'); void copyBtn.offsetWidth; copyBtn.classList.add('pulse');
   });
 
   // ----- Woodshop: filters + preview (lightbox) -----
@@ -48,7 +55,9 @@
     chips.forEach(chip => chip.addEventListener('click', () => {
       chips.forEach(c => c.classList.toggle('on', c === chip));
       const f = chip.dataset.filter;
-      pieces.forEach(p => { p.classList.toggle('hidden', f !== 'all' && p.dataset.cat !== f); p.classList.add('in'); });
+      pieces.forEach(p => p.classList.toggle('hidden', f !== 'all' && p.dataset.cat !== f));
+      // re-settle the pieces that remain, 30ms apart
+      visible().forEach((p, k) => { p.classList.remove('in'); void p.offsetWidth; p.style.animationDelay = k * 30 + 'ms'; p.classList.add('in'); });
     }));
 
     const lb = $('lightbox');
