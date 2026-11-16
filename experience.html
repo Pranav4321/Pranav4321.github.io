@@ -30,47 +30,61 @@
 
     <!-- ============ ROLE ============
          Copy an <article> to add another. The id must match the link on the home page (index.html). -->
+    <article class="role reveal" id="sciphy">
+      <div class="side"><div class="logo light"><img src="images/sciphy2.png" alt="Sci-Phy Lab"></div><span class="meta"><span class="now">● Current</span><br>Oct 2026 – Present<br>Baltimore, MD</span></div>
+      <div>
+        <h2>Sci-Phy Lab, JHU Institute for Robotics</h2>
+        <div class="title">Robotics Research Assistant</div>
+        <p class="summary">Hardware and tactile sensing for robot hands.</p>
+        <ul>
+          <li>Developing hardware and tactile sensors for dynamic, dexterous, contact-rich robotic manipulation.</li>
+        </ul>
+        <p class="stack">Tactile sensing · Robotic manipulation · Hardware</p>
+      </div>
+    </article>
+
     <article class="role reveal" id="arcade">
-      <div class="side"><div class="logo"><img src="images/arcade_img.png" alt="ARCADE Lab"></div><span class="meta"><span class="now">● Current</span><br>Feb – Sep 2026<br>Baltimore, MD</span></div>
+      <div class="side"><div class="logo"><img src="images/arcade_img.png" alt="ARCADE Lab"></div><span class="meta">Feb – Sep 2026<br>Baltimore, MD</span></div>
       <div>
         <h2>ARCADE Lab, Johns Hopkins University</h2>
-        <div class="title">ML Research Assistant</div>
-        <p class="summary">The lab builds generative AI systems for robotic surgery. I work on the machine learning side of that research.</p>
+        <div class="title">Machine Learning Research Assistant</div>
+        <p class="summary">Generative AI for spinal surgery planning and robotic training.</p>
         <ul>
-          <li>Add a highlight: the model, pipeline, or experiment you're responsible for.</li>
-          <li>Add a result: a number, a demo, a poster, or a paper in progress.</li>
-          <li>Add what you've learned or a tool you built that others use.</li>
+          <li>Built an end-to-end synthetic CT pipeline for robotic spinal surgery training, plus path planning to optimize needle trajectories for spinal cement delivery.</li>
+          <li>Built a Python/C++ statistical shape model across 500+ vertebrae meshes (non-rigid ICP, PCA) to simulate realistic fracture shapes.</li>
+          <li>Fine-tuned NVIDIA MAISI and ControlNet diffusion models to synthesize 200+ volumetric fracture CTs for surgical guidance and trajectory verification.</li>
         </ul>
-        <p class="stack">Python · PyTorch · Generative AI · Robotic surgery</p>
+        <p class="stack">Python · C++ · PyTorch · Diffusion models · Medical imaging</p>
       </div>
     </article>
 
     <article class="role reveal" id="design-team">
-      <div class="side"><div class="logo"><img src="images/cropped_circle_image.png" alt="JHU Design Team"></div><span class="meta"><br>Jan – Aug 2026<br>Baltimore, MD</span></div>
+      <div class="side"><div class="logo"><img src="images/cropped_circle_image.png" alt="JHU Design Team"></div><span class="meta">Jan – Aug 2026<br>Baltimore, MD</span></div>
       <div>
         <h2>Design Team, Johns Hopkins School of Medicine</h2>
-        <div class="title">R&amp;D Engineer</div>
-        <p class="summary">A design team engineering a device for minimally invasive surgery.</p>
+        <div class="title">Design Engineer</div>
+        <p class="summary">A bladder stone capture device with laser fragmentation and controlled suction.</p>
         <ul>
-          <li>Add a highlight: the part of the device you designed or tested.</li>
-          <li>Add a result: a prototype, a test outcome, or clinician feedback.</li>
-          <li>Add how you worked with the team (clinicians, engineers, reviews).</li>
+          <li>Designed stone cages in SolidWorks for a 2 mm working channel, reaching a 3× higher capture rate and 70% faster extraction than existing products in testing.</li>
+          <li>Prototyped STM32 closed-loop suction control, using PID on pressure sensor feedback to drive a PWM pump.</li>
+          <li>Validated with CFD and bench-top testing, and supported FDA design verification planning.</li>
         </ul>
-        <p class="stack">Medical devices · CAD · Prototyping</p>
+        <p class="stack">SolidWorks · STM32 · PID control · CFD · Medical devices</p>
       </div>
     </article>
 
-    <article class="role reveal" id="jhu">
-      <div class="side"><div class="logo">JHU</div><span class="meta">Aug 2024 – May 2028<br>Baltimore, MD</span></div>
+    <article class="role reveal" id="cu-medicine">
+      <div class="side"><div class="logo"><img src="images/cu-anschutz.png" alt="University of Colorado School of Medicine"></div><span class="meta">Jun – Sep 2024<br>Aurora, CO</span></div>
       <div>
-        <h2>Johns Hopkins University</h2>
-        <div class="title">B.S. Biomedical Engineering &amp; Computer Engineering</div>
-        <p class="summary">Studying at the intersection of medicine, hardware, and software.</p>
+        <h2>University of Colorado School of Medicine</h2>
+        <div class="title">Computer Vision Intern</div>
+        <p class="summary">Computer vision tools for surgery and eye care.</p>
         <ul>
-          <li><strong>Activities:</strong> AKPsi, Volunteers for Medical Engineering (VME), Software Engineering Club.</li>
-          <li><strong>Relevant coursework:</strong> add a few courses here.</li>
-          <li><strong>Honors:</strong> add any awards or Dean's List here.</li>
+          <li>Built an intraoperative tool that segments and tracks surgical instrument pose for robotic navigation and surgeon training.</li>
+          <li>Paired Meta's Segment Anything Model with optical flow and background subtraction across 20+ hours of surgical footage, cutting glare artifacts and improving tracking consistency by 12%.</li>
+          <li>Built an automated OCT retinal-layer segmentation tool, now deployed at the UCHealth Eye Center.</li>
         </ul>
+        <p class="stack">Python · Computer vision · SAM · OCT imaging</p>
       </div>
     </article>
 
