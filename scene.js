@@ -1,7 +1,7 @@
 // =========================================================
 // The ink landscape on the landing page.
-// Pen-line mountain ridges on paper. Where the cursor ribbon
-// (ribbon.js) sweeps across a ridge, the land slowly reshapes into
+// Pen-line mountain ridges on paper. Where the cursor
+// sweeps across a ridge, the land slowly reshapes into
 // a new one, and the new shape stays until you reshape it again.
 // =========================================================
 (function () {
@@ -31,12 +31,14 @@
   }
   const sm = (a, b, x) => { const t = Math.max(0, Math.min(1, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
 
-  // far → near: base height, amplitude, horizontal scale, line darkness
-  const ridges = [
-    { b: .6, a: .34, sc: 460, al: .14 }, { b: .645, a: .31, sc: 400, al: .2 }, { b: .69, a: .28, sc: 350, al: .27 },
-    { b: .735, a: .24, sc: 310, al: .35 }, { b: .78, a: .2, sc: 280, al: .44 }, { b: .83, a: .16, sc: 250, al: .54 },
-    { b: .88, a: .12, sc: 220, al: .64 }, { b: .935, a: .08, sc: 200, al: .74 },
-  ].map((R, i) => ({ ...R, seed: 7 + i * 6 }));
+  // far → near: base height, amplitude, horizontal scale, line darkness.
+  // 14 ridges, spaced closely, for a finer line density.
+  const NR = 14, lerp = (a, b, t) => a + (b - a) * t;
+  const ridges = Array.from({ length: NR }, (_, i) => {
+    const t = i / (NR - 1);
+    return { b: lerp(.625, .94, t), a: lerp(.3, .07, t), sc: lerp(460, 200, t), al: lerp(.12, .72, Math.pow(t, .85)), seed: 7 + i * 6 };
+  });
+  const TR = Math.round(NR * .65); // ridge the lookout tower stands on
 
   let z = [], zt = [], ys = [], tower = null;
   const env = X => .14 + .86 * sm(W * .25, W * .92, X); // taller toward the right, low and quiet behind the text
@@ -60,9 +62,9 @@
       heights(i); const y = ys[i];
       trace(y, 0); ctx.lineTo(W + STEP, H); ctx.lineTo(-STEP, H); ctx.closePath();
       ctx.fillStyle = PAPER; ctx.fill();
-      if (i >= 4) { // faint contour lines inside the nearer mountains, like a survey map
+      if (i >= NR / 2) { // faint contour lines inside the nearer mountains, like a survey map
         ctx.save(); ctx.clip(); ctx.lineWidth = .6;
-        for (let k = 1; k <= 4; k++) { ctx.strokeStyle = `rgba(${INK},${R.al * .17 / k})`; trace(y, k * 9 + k * k * 2); ctx.stroke(); }
+        for (let k = 1; k <= 3; k++) { ctx.strokeStyle = `rgba(${INK},${R.al * .17 / k})`; trace(y, k * 9 + k * k * 2); ctx.stroke(); }
         ctx.restore();
       }
       ctx.lineWidth = .8; // the ridge itself: two slightly offset passes, like a pen line
@@ -70,7 +72,7 @@
       ctx.strokeStyle = `rgba(${INK},${R.al * .45})`; trace(y, .6); ctx.stroke();
     });
     // one tiny fire-lookout tower standing on a peak
-    const c = tower, tx = c * STEP - STEP, ty = ys[5][c];
+    const c = tower, tx = c * STEP - STEP, ty = ys[TR][c];
     ctx.strokeStyle = `rgba(${INK},.75)`; ctx.fillStyle = PAPER; ctx.lineWidth = .8;
     ctx.beginPath();
     ctx.moveTo(tx - 5, ty + 1); ctx.lineTo(tx - 3, ty - 13); ctx.moveTo(tx + 5, ty + 1); ctx.lineTo(tx + 3, ty - 13);
@@ -89,8 +91,8 @@
     z = ridges.map((_, i) => Float32Array.from({ length: cols }, (_, c) => keep[i]?.[Math.min(c, keep[i].length - 1)] ?? 0));
     zt = z.map(a => Float32Array.from(a)); ys = ridges.map(() => new Float32Array(cols));
     ridges.forEach((_, i) => heights(i));
-    // put the tower on the highest point of the sixth ridge, toward the right
-    let best = 1e9; for (let c = Math.round(cols * .7); c < cols * .9; c++) if (ys[5][c] < best) { best = ys[5][c]; tower = c; }
+    // put the tower on the highest point of its ridge, toward the right
+    let best = 1e9; for (let c = Math.round(cols * .7); c < cols * .9; c++) if (ys[TR][c] < best) { best = ys[TR][c]; tower = c; }
     draw();
   }
 
@@ -118,9 +120,7 @@
     if (moving) requestAnimationFrame(tick); else running = false;
   }
   if (!reduce) {
-    // the ribbon (ribbon.js) reports where its head is each frame, so the land bends
-    // along the ribbon's looping path rather than the raw cursor
-    addEventListener('ribbonmove', e => push(e.detail.x, e.detail.y));
+    addEventListener('pointermove', e => push(e.clientX, e.clientY), { passive: true });
     document.addEventListener('pointerleave', () => { lx = ly = null; });
   }
 
@@ -133,9 +133,11 @@
   const hello = document.getElementById('hello');
   if (hello && !reduce) {
     const text = hello.textContent, marks = '∧⌒∿≈△~^⋀◠'.split('');
-    const start = performance.now() + 250;
+    let start = performance.now() + 250;
     hello.setAttribute('aria-label', text);
-    (function settle() {
+    // play once on load, then again every ~15 seconds
+    setInterval(() => { if (!document.hidden) { start = performance.now(); settle(); } }, 15000);
+    function settle() {
       const now = performance.now(), t = now - start;
       let html = '', done = true;
       [...text].forEach((ch, i) => {
@@ -146,6 +148,7 @@
       });
       hello.innerHTML = html;
       if (!done) requestAnimationFrame(settle);
-    })();
+    }
+    settle();
   }
 })();
