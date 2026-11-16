@@ -250,6 +250,31 @@ section { padding: 64px 0; }
 .lb-btn:active { transform: scale(.94); }
 .lb-close { position: absolute; top: 14px; right: 14px; z-index: 2; background: rgba(0, 0, 0, .35); }
 
+/* ============ LANDING (index.html): one screen, no scrolling ============ */
+body.landing { height: 100svh; overflow: hidden; }
+.landing .scene-hero { height: 100svh; min-height: 0; max-height: none; }
+.landing .scene-hero::after { display: none; }
+.landing .hero-text { top: 17%; }
+.doors { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; margin-top: 30px; }
+.doors a { display: inline-flex; align-items: baseline; gap: 12px; font-family: var(--serif); font-size: clamp(26px, 2.8vw, 34px); line-height: 1.2; }
+.doors span { background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size .35s var(--ease-out); }
+.doors a:hover span { background-size: 100% 1px; }
+.doors i { font-style: normal; font-size: .62em; opacity: 0; transform: translateX(-8px); transition: opacity .25s, transform .25s var(--ease-out); }
+.doors a:hover i, .doors a:focus-visible i { opacity: 1; transform: none; }
+.landing .hero-links { margin-top: 28px; }
+
+/* ============ INNER PAGES: plain, sleek, near black ============ */
+body.inner { --page: #0c0d0d; --faint: rgba(255, 255, 255, .05); --line: rgba(255, 255, 255, .08); }
+.inner .site-header { position: sticky; color: var(--ink); background: color-mix(in srgb, var(--page) 86%, transparent); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+.inner .site-header.solid { box-shadow: 0 1px 0 var(--line); }
+.inner main { padding-top: 0; }
+.page-head { padding: 64px 0 36px; }
+.page-head h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(42px, 5.4vw, 60px); line-height: 1.05; }
+.page-head p { color: var(--muted); margin-top: 12px; max-width: 52ch; }
+.page-head .back { color: var(--muted); opacity: 1; margin-bottom: 20px; }
+.page-head .back:hover { color: var(--ink); }
+.inner .site-footer { margin-top: 60px; }
+
 /* ============ RESPONSIVE ============ */
 @media (max-width: 760px) {
   .wrap { padding-left: 20px; padding-right: 20px; }

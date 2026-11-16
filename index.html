@@ -8,118 +8,31 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Gloock&family=Schibsted+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=10" />
+  <link rel="stylesheet" href="style.css?v=11" />
 </head>
-<body>
+<body class="landing">
   <header class="site-header">
     <div class="wrap">
-      <a class="name" href="#top">Pranav Sristy</a>
-      <nav><a href="#about" class="hide-sm">About</a><a href="#projects">Projects</a><a href="experience.html">Experience</a><a href="woodworking.html">Woodshop</a><a href="#contact" class="hide-sm">Contact</a><span class="when" id="when">Baltimore</span></nav>
+      <span class="name">Pranav Sristy</span>
+      <span class="when" id="when">Baltimore</span>
     </div>
   </header>
 
-  <section class="scene-hero" id="top">
+  <!-- The landing page is one screen: the sky (scene.js, follows Baltimore time) plus three doors into the site -->
+  <main class="scene-hero" id="top">
     <canvas class="scene" aria-hidden="true"></canvas>
     <div class="hero-text"><div class="wrap">
       <h1 class="fade">Pranav Sristy</h1>
-      <p class="fade" style="animation-delay:.2s">BME &amp; CE student at Johns Hopkins, working on robotics, tactile sensing, and machine learning. I build furniture on the side.</p>
-      <div class="hero-links fade" style="animation-delay:.35s"><a href="#projects">See my work ↓</a><a href="resume.pdf" target="_blank">Résumé ↗</a><a href="https://github.com/yourusername" target="_blank" rel="noopener">GitHub ↗</a><a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener">LinkedIn ↗</a></div>
+      <p class="fade" style="animation-delay:.15s">BME &amp; CE student at Johns Hopkins, working on robotics, tactile sensing, and machine learning. I build furniture on the side.</p>
+      <nav class="doors fade" style="animation-delay:.3s" aria-label="Sections">
+        <a href="experience.html"><span>Experience</span><i>→</i></a>
+        <a href="projects.html"><span>Projects</span><i>→</i></a>
+        <a href="woodworking.html"><span>Woodshop</span><i>→</i></a>
+      </nav>
+      <div class="hero-links fade" style="animation-delay:.45s"><a href="resume.pdf" target="_blank">Résumé ↗</a><a href="https://github.com/yourusername" target="_blank" rel="noopener">GitHub ↗</a><a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener">LinkedIn ↗</a><a href="mailto:you@email.com">Email ↗</a></div>
     </div></div>
-  </section>
+  </main>
 
-  <main><div class="wrap">
-
-    <!-- ============ ABOUT ============ -->
-    <section id="about" class="reveal">
-      <div class="label"><span>About</span></div>
-      <p class="big">I like building things, whether that means <em>writing software</em> or <em>working with hardware</em></p>
-      <p class="p">I'm a Biomedical and Computer Engineering student at Johns Hopkins. Right now I'm building tactile sensors for robot hands at the Sci-Phy Lab. Before that, I worked on machine learning for robotic surgery and computer vision for the operating room. Outside of class, you'll find me hooping or making something in the woodshop.</p>
-      <p class="stack">Python · C++ · JavaScript · React · PyTorch · ROS · CAD · Git</p>
-    </section>
-
-    <!-- ============ EXPERIENCE ============
-         Each row links to its entry on experience.html (the #id must match there) -->
-    <section id="experience" class="reveal">
-      <div class="label"><span>Experience</span><a href="experience.html">Full experience →</a></div>
-      <a class="xp-row" href="experience.html#sciphy"><div class="logo light"><img src="images/sciphy2.png" alt="Sci-Phy Lab"></div><div><b>Robotics Research Assistant, Sci-Phy Lab</b><p>Tactile sensors for dexterous robotic manipulation</p></div><span class="meta">Oct 2026 – Now<span class="arrow">→</span></span></a>
-      <a class="xp-row" href="experience.html#arcade"><div class="logo"><img src="images/arcade_img.png" alt="ARCADE Lab"></div><div><b>ML Research Assistant, ARCADE Lab</b><p>Synthetic CTs for robotic spinal surgery</p></div><span class="meta">Feb – Sep 2026<span class="arrow">→</span></span></a>
-      <a class="xp-row" href="experience.html#design-team"><div class="logo"><img src="images/cropped_circle_image.png" alt="JHU School of Medicine"></div><div><b>Design Engineer, JHU School of Medicine</b><p>A bladder stone capture device</p></div><span class="meta">Jan – Aug 2026<span class="arrow">→</span></span></a>
-      <a class="xp-row" href="experience.html#cu-medicine"><div class="logo"><img src="images/cu-anschutz.png" alt="CU School of Medicine"></div><div><b>Computer Vision Intern, CU School of Medicine</b><p>Tracking surgical tools and segmenting retinal scans</p></div><span class="meta">Jun – Sep 2024<span class="arrow">→</span></span></a>
-    </section>
-
-    <!-- ============ PROJECTS ============
-         Each card opens its own page in projects/. To add a cover image, put it in images/ and swap the placeholder for the <img> -->
-    <section id="projects">
-      <div class="label reveal"><span>Projects</span></div>
-      <div class="cards">
-        <a class="card reveal" href="projects/project-1.html">
-          <div class="img"><div class="ph">project image</div><!-- <img src="images/project-1/cover.jpg" alt="First Project"> --></div>
-          <div class="b"><div class="top"><b>First Project</b><span class="go">→</span></div><p>Short description of what it does and why it's interesting.</p><p class="stack">Python · PyTorch · ROS 2</p></div>
-        </a>
-        <a class="card reveal" href="projects/project-2.html">
-          <div class="img"><div class="ph">project image</div><!-- <img src="images/project-2/cover.jpg" alt="Second Project"> --></div>
-          <div class="b"><div class="top"><b>Second Project</b><span class="go">→</span></div><p>Short description of what it does and why it's interesting.</p><p class="stack">React · Node</p></div>
-        </a>
-        <a class="card reveal" href="projects/project-3.html">
-          <div class="img"><div class="ph">project image</div><!-- <img src="images/project-3/cover.jpg" alt="Third Project"> --></div>
-          <div class="b"><div class="top"><b>Third Project</b><span class="go">→</span></div><p>Short description of what it does and why it's interesting.</p><p class="stack">C++ · ESP32</p></div>
-        </a>
-        <a class="card reveal" href="projects/project-4.html">
-          <div class="img"><div class="ph">project image</div><!-- <img src="images/project-4/cover.jpg" alt="Fourth Project"> --></div>
-          <div class="b"><div class="top"><b>Fourth Project</b><span class="go">→</span></div><p>Short description of what it does and why it's interesting.</p><p class="stack">Fusion 360 · MATLAB</p></div>
-        </a>
-        <a class="card reveal" href="projects/project-5.html">
-          <div class="img"><div class="ph">project image</div><!-- <img src="images/project-5/cover.jpg" alt="Fifth Project"> --></div>
-          <div class="b"><div class="top"><b>Fifth Project</b><span class="go">→</span></div><p>Short description of what it does and why it's interesting.</p><p class="stack">Swift · Figma</p></div>
-        </a>
-      </div>
-    </section>
-
-    <!-- ============ WOODSHOP ============ -->
-    <section id="woodshop" class="reveal">
-      <div class="label"><span>Woodshop</span></div>
-      <div class="shop-row">
-      <div>
-        <p class="big">Furniture and small objects, made by hand</p>
-        <p class="p">When I'm not at a keyboard, I'm usually covered in sawdust. Tables, boxes, turned bowls.</p>
-        <a class="btn ghost" href="woodworking.html">Visit the woodshop →</a>
-      </div>
-      <!-- One frame that rotates through the pieces. To add a photo, replace a slide's
-           <div class="ph">…</div> with <img src="images/woodworking/your-photo.jpg" alt="…">.
-           Add or remove <figure> blocks freely; the counter and progress bars update themselves. -->
-      <a class="shop-show" href="woodworking.html" id="shopShow" aria-label="See the woodshop">
-        <figure class="slide" data-title="Walnut Coffee Table" data-meta="Black walnut · 2026"><div class="ph" style="background:#3a3027">photo</div></figure>
-        <figure class="slide" data-title="Dovetailed Keepsake Box" data-meta="Cherry &amp; maple · 2025"><div class="ph" style="background:#3b2c26">photo</div></figure>
-        <figure class="slide" data-title="Spalted Maple Bowl" data-meta="Spalted maple · 2025"><div class="ph" style="background:#36322a">photo</div></figure>
-        <figure class="slide" data-title="End-Grain Cutting Board" data-meta="Maple, walnut, cherry · 2024"><div class="ph" style="background:#332d27">photo</div></figure>
-        <figure class="slide" data-title="Oak Bookshelf" data-meta="White oak · 2024"><div class="ph" style="background:#38342b">photo</div></figure>
-        <figure class="slide" data-title="Pen Set" data-meta="Assorted hardwoods · 2024"><div class="ph" style="background:#352e2a">photo</div></figure>
-        <div class="show-bars" aria-hidden="true"></div>
-        <div class="show-cap"><div><b id="showTitle"></b><span id="showMeta"></span></div><span class="show-cta"><span id="showCount"></span> pieces →</span></div>
-      </a>
-      </div>
-    </section>
-
-    <!-- ============ CONTACT ============ -->
-    <section id="contact" class="reveal">
-      <div class="label"><span>Contact</span></div>
-      <p class="big">Always up for talking about projects, research, or internships</p>
-      <button class="btn" id="copyEmail" data-email="you@email.com">you@email.com</button>
-      <a class="btn ghost" href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener">LinkedIn ↗</a>
-      <span class="copied" id="copied">copied ✓</span>
-    </section>
-
-  </div></main>
-
-  <footer class="site-footer">
-    <div class="wrap">
-      <span>© <span id="year">2026</span> Pranav Sristy</span>
-      <span><a href="https://github.com/yourusername" target="_blank" rel="noopener">GitHub</a> · <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener">LinkedIn</a> · <a href="resume.pdf" target="_blank">Résumé</a></span>
-      <span>The sky up top follows the time in Baltimore.</span>
-    </div>
-  </footer>
-
-  <script src="scene.js?v=10"></script>
-  <script src="main.js?v=10"></script>
+  <script src="scene.js?v=11"></script>
 </body>
 </html>
