@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;1,8..60,400&family=Geist:wght@400..600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../style.css?v=20" />
+  <link rel="stylesheet" href="../style.css?v=21" />
 </head>
 <body class="inner">
   <header class="site-header">
@@ -34,18 +34,25 @@
     </div>
     <p class="stack reveal">OAK-D Lite · Stereo vision · YOLO · COCO · Raspberry Pi · ESP32 · Relays · Bluetooth · HRTF spatial audio</p>
 
-    <!-- The device, drawn in contour lines (diva-model.js). Drag to turn it; hover a part to find it. -->
-    <section class="model reveal" aria-label="Interactive model of DIVA">
-      <div class="model-stage">
-        <canvas id="divaModel" aria-hidden="true"></canvas>
-        <div class="model-pins" id="divaPins"></div>
-        <span class="model-hint">Drag to turn</span>
+    <!-- The CAD render (rendered by Tarun Malarvasan) on a sheet of survey paper.
+         Hover a dot or a row to find a part; the sheet tilts a little toward the cursor (diva-render.js).
+         Dot positions are percentages of the image: left = x, top = y. -->
+    <section class="model reveal" aria-label="Rendered CAD model of DIVA">
+      <div class="render" id="divaRender">
+        <div class="sheet">
+          <img src="../images/diva/render.jpg" alt="Rendered CAD model of DIVA: the camera headband, a chest harness holding the Pi and LCD case, and the tactile hand unit, all joined by one cable" width="730" height="1390">
+          <button type="button" class="spot" data-part="stereo" style="left:54.4%;top:4.5%" aria-label="OAK-D Lite"></button>
+          <button type="button" class="spot" data-part="rgb" style="left:65.3%;top:4.5%" aria-label="RGB camera"></button>
+          <button type="button" class="spot" data-part="pi" style="left:64.8%;top:38.3%" aria-label="Raspberry Pi"></button>
+          <button type="button" class="spot" data-part="lcd" style="left:64.8%;top:46%" aria-label="LCD interface"></button>
+          <button type="button" class="spot" data-part="hand" style="left:13%;top:94.6%" aria-label="Tactile array"></button>
+        </div>
+        <span class="render-credit">CAD render</span>
       </div>
       <ol class="model-parts" id="divaParts">
-        <li data-part="stereo"><b>OAK-D Lite</b><span>Stereoscopic depth camera. Disparity between its two lenses gives a dense depth map.</span></li>
+        <li data-part="stereo"><b>OAK-D Lite</b><span>Stereoscopic depth camera. Disparity between its two outer lenses gives a dense depth map.</span></li>
         <li data-part="rgb"><b>RGB camera</b><span>Feeds a lightweight YOLO detector trained on COCO, 80 classes.</span></li>
-        <li data-part="ears"><b>Earbuds</b><span>HRTF spatial audio. Labels play from the object's direction.</span></li>
-        <li data-part="pi"><b>Raspberry Pi</b><span>Depth processing and YOLO inference. Builds the 5×5 grid and sends it over Bluetooth.</span></li>
+        <li data-part="pi"><b>Raspberry Pi</b><span>Depth processing and YOLO inference. Builds the 5×5 grid for the hand unit.</span></li>
         <li data-part="lcd"><b>LCD interface</b><span>Shares the chest case with the Pi. Sets the distance threshold and audio.</span></li>
         <li data-part="hand"><b>Tactile array</b><span>25 electromagnetic actuators, switched by an ESP32 through relays.</span></li>
       </ol>
@@ -177,8 +184,8 @@
       <span><a href="https://github.com/yourusername" target="_blank" rel="noopener">GitHub</a> · <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener">LinkedIn</a> · <a href="../resume.pdf" target="_blank">Résumé</a> · <a href="mailto:you@email.com">Email</a></span>
     </div>
   </footer>
-  <script src="../ribbon.js?v=20"></script>
-  <script src="../main.js?v=20"></script>
-  <script src="diva-model.js?v=20"></script>
+  <script src="../ribbon.js?v=21"></script>
+  <script src="../main.js?v=21"></script>
+  <script src="diva-render.js?v=21"></script>
 </body>
 </html>
