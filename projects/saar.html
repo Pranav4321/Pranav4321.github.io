@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Second Project · Pranav Sristy</title>
-  <meta name="description" content="Second Project, a project by Pranav Sristy." />
+  <title>SAAR · Pranav Sristy</title>
+  <meta name="description" content="SAAR: projector-based augmented reality that casts a patient's CT-derived anatomy onto the surgical site from a motorized parallel-linkage frame." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;1,8..60,400&family=Geist:wght@400..600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../style.css?v=17" />
+  <link rel="stylesheet" href="../style.css?v=22" />
 </head>
 <body class="inner">
   <header class="site-header">
@@ -21,64 +21,105 @@
   <main><div class="wrap">
     <div class="page-head">
       <a class="back fade" href="../projects.html"><span>←</span> All projects</a>
-      <h1 class="fade" style="animation-delay:.05s">Second Project</h1>
-      <p class="fade" style="animation-delay:.1s">One-sentence pitch: what this is and why someone should care.</p>
+      <h1 class="fade" style="animation-delay:.05s">SAAR</h1>
+      <p class="fade" style="animation-delay:.1s">Surgical aid for anatomical reconstructions. A calibrated projector on a motorized frame casts the patient's own CT-derived anatomy onto the surgical site, so the surgeon never has to look away at a screen.</p>
     </div>
 
+    <!-- TODO: fill in the timeline -->
     <div class="facts reveal">
-      <div><span class="meta">Role</span><b>Full-stack developer</b></div>
-      <div><span class="meta">Timeline</span><b>Spring 2026</b></div>
-      <div><span class="meta">Team</span><b>Solo</b></div>
-      <div><span class="meta">Links</span><b><a href="https://github.com/yourusername" target="_blank" rel="noopener">GitHub ↗</a></b></div>
+      <div><span class="meta">Role</span><b>Co-developer</b></div>
+      <div><span class="meta">Timeline</span><b>20XX</b></div>
+      <div><span class="meta">Team</span><b>3 people</b></div>
+      <div><span class="meta">Links</span><b><a href="https://isef.net/project/enbm051t-surgical-navigation-via-projector-based-ar-and-cv" target="_blank" rel="noopener">ISEF, Embedded Systems ↗</a></b></div>
     </div>
-    <p class="stack reveal">React · Node</p>
+    <p class="stack reveal">Projector calibration · CT registration · 3D reconstruction · U-Net · CNN-LSTM · Intel RealSense T265 · Logitech C920 · Parallel linkage · MGN rails · goBILDA motors</p>
 
-    <!-- Cover image or demo video. Put files in images/project-2/ then use:
-         <img src="../images/project-2/cover.jpg" alt="">   or   <video src="../images/project-2/demo.mp4" autoplay muted loop playsinline></video> -->
-    <div class="cover reveal"><div class="ph">cover image or demo video</div></div>
+    <!-- The CAD render on a sheet of survey paper.
+         Hover a dot, label or row to find a part; the sheet tilts a little toward the cursor (render-sheet.js).
+         Dot positions are percentages of the image (left = x, top = y); data-lx / data-ly place its label. -->
+    <section class="model reveal" aria-label="Rendered CAD model of SAAR">
+      <div class="render wide">
+        <div class="sheet">
+          <img src="../images/saar/render.jpg" alt="Rendered CAD model of SAAR: a cylindrical projector on a platform held by a parallel linkage, whose carriages ride a belt-driven rail with a motor at each end" width="1196" height="758">
+          <button type="button" class="spot" data-part="motors" style="left:5.7%;top:27.7%" data-lx="8" data-ly="7" aria-label="goBILDA motors"></button>
+          <button type="button" class="spot" data-part="linkage" style="left:19.9%;top:19.8%" data-lx="29" data-ly="4" aria-label="Parallel linkage"></button>
+          <button type="button" class="spot" data-part="rails" style="left:12.8%;top:43.5%" data-lx="16" data-ly="68" aria-label="MGN rails + belt"></button>
+          <button type="button" class="spot" data-part="projector" style="left:43.7%;top:50.1%" data-lx="57" data-ly="6" aria-label="Calibrated projector"></button>
+          <button type="button" class="spot" data-part="cameras" style="left:42.5%;top:73.9%" data-lx="31" data-ly="93" aria-label="T265 + C920 cameras"></button>
+          <button type="button" class="spot" data-part="control" style="left:78%;top:56.7%" data-lx="84" data-ly="30" aria-label="Control interface"></button>
+        </div>
+        <span class="render-credit">CAD render</span>
+      </div>
+      <ol class="model-parts">
+        <li data-part="motors"><b>goBILDA motors</b><span>One at each end of the beam, driving the carriages by belt.</span></li>
+        <li data-part="linkage"><b>Parallel linkage</b><span>Tripteron-style arms connecting the carriages to the projector platform.</span></li>
+        <li data-part="rails"><b>MGN rails + belt</b><span>Linear guides the carriages ride on, along a single beam.</span></li>
+        <li data-part="projector"><b>Calibrated projector</b><span>Casts the reconstruction onto the patient. Calibrated so a 3D point maps to a known pixel.</span></li>
+        <li data-part="cameras"><b>T265 + C920 cameras</b><span>Intel RealSense T265 tracking camera and a Logitech C920 watching the site.</span></li>
+        <li data-part="control"><b>Control interface</b><span>Control electronics for the frame.</span></li>
+      </ol>
+    </section>
 
     <div class="article">
       <aside class="toc">
         <a href="#overview">Overview</a>
-        <a href="#build">The build</a>
-        <a href="#challenges">Challenges</a>
-        <a href="#results">Results</a>
+        <a href="#how">How it works</a>
+        <a href="#frame">Motorized frame</a>
+        <a href="#registration">Registration and projection</a>
+        <a href="#tracking">Tracking</a>
+        <a href="#models">Learning models</a>
+        <a href="#status">Results</a>
         <a href="#gallery">Gallery</a>
       </aside>
 
       <div class="prose">
         <h2 id="overview" class="reveal">Overview</h2>
-        <p class="reveal">What problem were you solving, and why did you pick it? Set the scene in two or three sentences so someone skimming knows exactly what they're looking at.</p>
-        <p class="reveal">What were the goals or constraints? <strong>Budget, size, speed, accuracy</strong>: whatever made it hard.</p>
+        <p class="reveal">In image-guided surgery the anatomy lives on a monitor beside the table. Surgeons switch between the patient and a fluoroscopy or camera display, translating screen coordinates to body coordinates in their head for the whole procedure.</p>
+        <p class="reveal">SAAR overlays the anatomy on the patient instead. Preoperative scans become a 3D model, and a projector on a motorized frame casts it onto the surgical site. The build spans mechanical design, motor control, computer vision and deep learning, using off-the-shelf parts in place of a commercial navigation platform.</p>
 
-        <h2 id="build" class="reveal">The build</h2>
-        <p class="reveal">Walk through how it works: the architecture, the key design decisions, and why you made them.</p>
-        <figure class="reveal"><div class="frame"><div class="ph">diagram / CAD / screenshot</div><!-- <img src="../images/project-2/diagram.jpg" alt=""> --></div><figcaption>Fig. 1: Caption describing what's shown.</figcaption></figure>
-        <ul class="reveal">
-          <li>Key component or feature #1, and what it does.</li>
-          <li>Key component or feature #2.</li>
-          <li>Key component or feature #3.</li>
-        </ul>
+        <h2 id="how" class="reveal">How it works</h2>
+        <div class="flow reveal">
+          <div class="flow-row">
+            <ol class="plain">
+              <li class="step"><b>Reconstruct</b><span class="tech">CT → 3D, U-Net</span><span>Preoperative scans become a 3D model, with abnormalities segmented out.</span></li>
+              <li class="step"><b>Register</b><span class="tech">Registration pipeline</span><span>The model is aligned to the patient on the table.</span></li>
+              <li class="step"><b>Project</b><span class="tech">Calibrated projector</span><span>The anatomy is cast onto the surgical site, with regions of interest highlighted.</span></li>
+              <li class="step"><b>Track</b><span class="tech">T265, C920, motors</span><span>As the patient moves, the frame moves the projector to keep the overlay in place.</span></li>
+            </ol>
+          </div>
+        </div>
 
-        <h2 id="challenges" class="reveal">Challenges</h2>
-        <p class="reveal">The most interesting thing that went wrong and how you figured it out. This is the part that shows how you think.</p>
+        <h2 id="frame" class="reveal">Motorized frame</h2>
+        <p class="reveal">The projector sits on a platform carried by a <strong>tripteron-style parallel linkage</strong>. Its carriages ride <strong>MGN linear rails</strong> along a single beam, belt-driven by <strong>goBILDA motors</strong> at each end. Moving the carriages relative to each other repositions the platform, so the projection can be shifted to follow the patient without moving the whole rig.</p>
+        <p class="reveal">A parallel linkage keeps the moving mass low, with the motors fixed on the beam instead of riding on the arm. That keeps the platform stiff and quick to correct.</p>
+        <!-- Swap for <img src="../images/saar/side.jpg" alt=""> -->
         <div class="duo reveal">
-          <figure><div class="frame"><div class="ph">before</div></div><figcaption>Before</figcaption></figure>
-          <figure><div class="frame"><div class="ph">after</div></div><figcaption>After</figcaption></figure>
+          <figure><div class="frame"><div class="ph">rig, side view</div></div><figcaption>The rig from the side</figcaption></figure>
+          <figure><div class="frame"><div class="ph">rig, from under the frame</div></div><figcaption>From under the frame</figcaption></figure>
         </div>
 
-        <h2 id="results" class="reveal">Results</h2>
-        <p class="reveal">What did it end up doing? Numbers, demos, awards, or what you'd do differently next time.</p>
-        <div class="stats reveal">
-          <div><b>30%</b><span>faster than baseline</span></div>
-          <div><b>$120</b><span>total cost</span></div>
-          <div><b>1st</b><span>place at a hackathon</span></div>
-        </div>
+        <h2 id="registration" class="reveal">Registration and projection</h2>
+        <p class="reveal">A custom <strong>patient registration pipeline</strong> converts preoperative CT into a 3D reconstruction and aligns it with the patient's position on the table. The projector is <strong>calibrated</strong> like a camera in reverse, so any point on the reconstruction can be mapped to the projector pixel that lands on it. That's what lets the overlay sit on the right spot of a curved body, not just a flat image thrown at it.</p>
+
+        <h2 id="tracking" class="reveal">Tracking</h2>
+        <p class="reveal">Patients shift on the table and breathe, so a static overlay loses alignment quickly. An <strong>Intel RealSense T265</strong> and a <strong>Logitech C920</strong> monitor the site, and a <strong>splotch-based tracking algorithm</strong> locates it in each frame. Any offset becomes a motor command, and the frame repositions the projector until the overlay is back on target: one closed loop from camera to actuator.</p>
+
+        <h2 id="models" class="reveal">Learning models</h2>
+        <ul class="reveal">
+          <li><strong>U-Net segmentation:</strong> a custom CNN labels structures in the preoperative scans and picks out abnormal regions, which are drawn in a highlight colour in the projection.</li>
+          <li><strong>CNN-LSTM motion prediction:</strong> thoracic organs move with every breath and heartbeat, which a single scan can't capture. The CNN extracts spatial features, and the LSTM models them over time from biometric signals to predict 3D organ position, so the projection tracks the live anatomy.</li>
+        </ul>
+        <p class="reveal">Training and validation used large public CT and MRI datasets.</p>
+
+        <h2 id="status" class="reveal">Results</h2>
+        <!-- Add your numbers here: segmentation accuracy, motion-prediction error, projection alignment error -->
+        <p class="reveal">Projection alignment accuracy was measured on the physical rig. The other result is cost: a projector, linear rails and off-the-shelf motors doing the job of a commercial image-guidance system.</p>
 
         <h2 id="gallery" class="reveal">Gallery</h2>
+        <!-- Photos go in images/saar/. Swap a placeholder for <img src="../images/saar/demo.jpg" alt="describe the photo"> -->
         <div class="duo reveal">
-          <figure><div class="frame"><div class="ph">photo</div></div></figure>
-          <figure><div class="frame"><div class="ph">photo</div></div></figure>
+          <figure><div class="frame"><div class="ph">demo setup</div></div></figure>
+          <figure><div class="frame"><div class="ph">projection on a model</div></div></figure>
           <figure><div class="frame"><div class="ph">photo</div></div></figure>
           <figure><div class="frame"><div class="ph">photo</div></div></figure>
         </div>
@@ -97,7 +138,8 @@
       <span><a href="https://github.com/yourusername" target="_blank" rel="noopener">GitHub</a> · <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener">LinkedIn</a> · <a href="../resume.pdf" target="_blank">Résumé</a> · <a href="mailto:you@email.com">Email</a></span>
     </div>
   </footer>
-  <script src="../ribbon.js?v=17"></script>
-  <script src="../main.js?v=17"></script>
+  <script src="../ribbon.js?v=22"></script>
+  <script src="../main.js?v=22"></script>
+  <script src="render-sheet.js?v=22"></script>
 </body>
 </html>

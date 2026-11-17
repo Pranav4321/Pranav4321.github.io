@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;1,8..60,400&family=Geist:wght@400..600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../style.css?v=21" />
+  <link rel="stylesheet" href="../style.css?v=22" />
 </head>
 <body class="inner">
   <header class="site-header">
@@ -35,17 +35,17 @@
     <p class="stack reveal">OAK-D Lite · Stereo vision · YOLO · COCO · Raspberry Pi · ESP32 · Relays · Bluetooth · HRTF spatial audio</p>
 
     <!-- The CAD render (rendered by Tarun Malarvasan) on a sheet of survey paper.
-         Hover a dot or a row to find a part; the sheet tilts a little toward the cursor (diva-render.js).
-         Dot positions are percentages of the image: left = x, top = y. -->
+         Hover a dot, label or row to find a part; the sheet tilts a little toward the cursor (render-sheet.js).
+         Dot positions are percentages of the image (left = x, top = y); data-lx / data-ly place its label. -->
     <section class="model reveal" aria-label="Rendered CAD model of DIVA">
       <div class="render" id="divaRender">
         <div class="sheet">
           <img src="../images/diva/render.jpg" alt="Rendered CAD model of DIVA: the camera headband, a chest harness holding the Pi and LCD case, and the tactile hand unit, all joined by one cable" width="730" height="1390">
-          <button type="button" class="spot" data-part="stereo" style="left:54.4%;top:4.5%" aria-label="OAK-D Lite"></button>
-          <button type="button" class="spot" data-part="rgb" style="left:65.3%;top:4.5%" aria-label="RGB camera"></button>
-          <button type="button" class="spot" data-part="pi" style="left:64.8%;top:38.3%" aria-label="Raspberry Pi"></button>
-          <button type="button" class="spot" data-part="lcd" style="left:64.8%;top:46%" aria-label="LCD interface"></button>
-          <button type="button" class="spot" data-part="hand" style="left:13%;top:94.6%" aria-label="Tactile array"></button>
+          <button type="button" class="spot" data-part="stereo" style="left:54.4%;top:4.5%" data-lx="38" data-ly="14" aria-label="OAK-D Lite"></button>
+          <button type="button" class="spot" data-part="rgb" style="left:65.3%;top:4.5%" data-lx="72" data-ly="13" aria-label="RGB camera"></button>
+          <button type="button" class="spot" data-part="pi" style="left:64.8%;top:38.3%" data-lx="72" data-ly="19" aria-label="Raspberry Pi"></button>
+          <button type="button" class="spot" data-part="lcd" style="left:64.8%;top:46%" data-lx="72" data-ly="63" aria-label="LCD interface"></button>
+          <button type="button" class="spot" data-part="hand" style="left:13%;top:94.6%" data-lx="30" data-ly="94.6" aria-label="Tactile array"></button>
         </div>
         <span class="render-credit">CAD render</span>
       </div>
@@ -71,7 +71,7 @@
 
       <div class="prose">
         <h2 id="overview" class="reveal">Overview</h2>
-        <p class="reveal">The white cane only reads the ground a step ahead, and the electronic aids that do more cost more than most people who need them can pay. DIVA is built for about <strong>$278</strong>.</p>
+        <p class="reveal">A white cane only senses what it physically touches, and electronic mobility aids that see further are priced out of reach for most of the people who need them. DIVA does it with off-the-shelf parts for about <strong>$278</strong>.</p>
         <p class="reveal">You wear a headband camera and hold a small pad. Anything close enough to walk into rises as a bump on the pad, in the same spot it sits in front of you. Earbuds name the objects around you, and each name comes from the object's direction. It's <strong>sensory substitution</strong>: sight is handed to touch and hearing.</p>
 
         <h2 id="how" class="reveal">How it works</h2>
@@ -131,7 +131,7 @@
 
 
         <h2 id="depth" class="reveal">Depth sensing</h2>
-        <p class="reveal">Like two eyes, the <strong>OAK-D Lite</strong> sees the room from two points a few centimetres apart. Near objects shift more between the two images than far ones, and the camera turns that shift (disparity) into a distance for every pixel.</p>
+        <p class="reveal">The <strong>OAK-D Lite</strong> has two lenses spaced apart like a pair of eyes. An object close to the camera lands in noticeably different spots in the left and right images, and a distant one barely moves. The camera measures that offset (disparity) at every pixel and converts it to distance on board.</p>
         <p class="reveal">The <strong>Raspberry Pi</strong> splits each depth frame into a <strong>5×5 grid</strong> and averages each cell into one number. Cells closer than the wearer's threshold, set on the LCD, are marked blocked. The Pi and LCD share one case on the chest, cabled to the headband.</p>
         <!-- Put the camera clips or stills in images/diva/ and swap each placeholder for
              <img src="../images/diva/rgb.jpg" alt="">  or  <video src="../images/diva/rgb.mp4" autoplay muted loop playsinline></video> -->
@@ -141,25 +141,25 @@
         </div>
 
         <h2 id="tactile" class="reveal">Tactile feedback</h2>
-        <p class="reveal">The grid goes over <strong>Bluetooth</strong> to the hand unit, a separate pad of 25 electromagnetic actuators under silicone. It maps 1:1 onto the palm, so top-left in front of you is top-left on your hand.</p>
-        <p class="reveal">An <strong>ESP32</strong> receives each grid and switches the actuators through <strong>relays</strong>, and a powered cell pushes up a bump you can feel. Over three builds the whole system went from 6.84 lb to 2.78 lb, and the parts came to $149 for the stereo camera, $73 for the controller and $56 for the tactile array.</p>
+        <p class="reveal">The grid goes over <strong>Bluetooth</strong> to the hand unit, a separate pad of 25 electromagnetic actuators under silicone. The mapping is 1:1: the upper-left cell of the camera's view drives the actuator under the upper-left of the palm.</p>
+        <p class="reveal">An <strong>ESP32</strong> receives each grid and switches the actuators through <strong>relays</strong>, and energizing a cell raises its pad against the skin. Over three builds the whole system went from 6.84 lb to 2.78 lb, and the parts came to $149 for the stereo camera, $73 for the controller and $56 for the tactile array.</p>
 
         <h2 id="detection" class="reveal">Detection and audio</h2>
-        <p class="reveal">Touch tells you where something is, and sound tells you what it is. A <strong>lightweight YOLO</strong> model trained on <strong>COCO</strong> runs on the RGB frame and finds objects across 80 classes. The average point of each detection is looked up in the depth map to get the object's distance and direction.</p>
+        <p class="reveal">The pad gives position. Audio adds identity. A <strong>lightweight YOLO</strong> model trained on <strong>COCO</strong> runs on the RGB frame and finds objects across 80 classes. The average point of each detection is looked up in the depth map to get the object's distance and direction.</p>
         <p class="reveal">The label is then rendered with <strong>head-related transfer functions</strong> (HRTFs), which shape the sound the way your head and ears would. "Chair" heard on your left means the chair is on your left.</p>
 
         <h2 id="evaluation" class="reveal">Evaluation</h2>
         <ul class="reveal">
           <li><strong>Depth accuracy:</strong> three objects at 18 distances from 0.5 to 5 m gave a 3.4% mean error.</li>
           <li><strong>Reading the pad:</strong> blind participants identified which of 25 cells fired 21.8 times out of 25 on average, and blindfolded sighted participants 17.7.</li>
-          <li><strong>Navigation:</strong> 18 participants (9 blind, 9 blindfolded) crossed a ten-obstacle indoor course with no aid, with a white cane, and with DIVA. DIVA runs were also about 10 s faster than cane runs.</li>
+          <li><strong>Navigation:</strong> 18 participants (9 blind, 9 blindfolded) each walked an indoor course of ten obstacles three ways: unaided, with a white cane, and with DIVA. With DIVA they also finished roughly 10 s ahead of their cane runs.</li>
         </ul>
         <div class="stats reveal">
           <div><b>7.7</b><span>collisions per run, no aid</span></div>
           <div><b>3.0</b><span>with a white cane</span></div>
           <div><b>1.2</b><span>with DIVA</span></div>
         </div>
-        <p class="reveal">Testing was indoors with small groups. Next steps are outdoor use, a finer tactile grid, battery life, and GPS route guidance.</p>
+        <p class="reveal">All trials were indoors with small cohorts. Next steps are outdoor use, a finer tactile grid, battery life, and GPS route guidance.</p>
 
         <h2 id="gallery" class="reveal">Gallery</h2>
         <!-- Photos go in images/diva/. Swap a placeholder for <img src="../images/diva/build-1.jpg" alt="describe the photo"> -->
@@ -173,8 +173,8 @@
     </div>
 
     <nav class="pager reveal" aria-label="More projects">
-      <a href="project-5.html"><span class="meta">← Previous</span><b>Fifth Project</b></a>
-      <a href="project-2.html"><span class="meta">Next →</span><b>Second Project</b></a>
+      <a href="project-3.html"><span class="meta">← Previous</span><b>Third Project</b></a>
+      <a href="saar.html"><span class="meta">Next →</span><b>SAAR</b></a>
     </nav>
   </div></main>
 
@@ -184,8 +184,8 @@
       <span><a href="https://github.com/yourusername" target="_blank" rel="noopener">GitHub</a> · <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener">LinkedIn</a> · <a href="../resume.pdf" target="_blank">Résumé</a> · <a href="mailto:you@email.com">Email</a></span>
     </div>
   </footer>
-  <script src="../ribbon.js?v=21"></script>
-  <script src="../main.js?v=21"></script>
-  <script src="diva-render.js?v=21"></script>
+  <script src="../ribbon.js?v=22"></script>
+  <script src="../main.js?v=22"></script>
+  <script src="render-sheet.js?v=22"></script>
 </body>
 </html>
