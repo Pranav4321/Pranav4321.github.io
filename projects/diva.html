@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;1,8..60,400&family=Geist:wght@400..600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../style.css?v=22" />
+  <link rel="stylesheet" href="../style.css?v=24" />
 </head>
 <body class="inner">
   <header class="site-header">
@@ -133,11 +133,10 @@
         <h2 id="depth" class="reveal">Depth sensing</h2>
         <p class="reveal">The <strong>OAK-D Lite</strong> has two lenses spaced apart like a pair of eyes. An object close to the camera lands in noticeably different spots in the left and right images, and a distant one barely moves. The camera measures that offset (disparity) at every pixel and converts it to distance on board.</p>
         <p class="reveal">The <strong>Raspberry Pi</strong> splits each depth frame into a <strong>5×5 grid</strong> and averages each cell into one number. Cells closer than the wearer's threshold, set on the LCD, are marked blocked. The Pi and LCD share one case on the chest, cabled to the headband.</p>
-        <!-- Put the camera clips or stills in images/diva/ and swap each placeholder for
-             <img src="../images/diva/rgb.jpg" alt="">  or  <video src="../images/diva/rgb.mp4" autoplay muted loop playsinline></video> -->
-        <div class="duo reveal">
-          <figure><div class="frame"><div class="ph">RGB camera view</div></div><figcaption>RGB stream</figcaption></figure>
-          <figure><div class="frame"><div class="ph">depth camera view</div></div><figcaption>Stereo depth map, same scene</figcaption></figure>
+        <!-- The two camera clips: silent and looping -->
+        <div class="duo clips reveal">
+          <figure><div class="frame"><video src="../images/diva/rgb_view.mp4" autoplay muted loop playsinline preload="metadata" aria-label="RGB camera view of a room"></video></div><figcaption>RGB camera view</figcaption></figure>
+          <figure><div class="frame"><video src="../images/diva/stereo_view.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Stereo depth view of the same room, with distance readouts per grid cell"></video></div><figcaption>Stereo depth view, same scene</figcaption></figure>
         </div>
 
         <h2 id="tactile" class="reveal">Tactile feedback</h2>
@@ -162,12 +161,12 @@
         <p class="reveal">All trials were indoors with small cohorts. Next steps are outdoor use, a finer tactile grid, battery life, and GPS route guidance.</p>
 
         <h2 id="gallery" class="reveal">Gallery</h2>
-        <!-- Photos go in images/diva/. Swap a placeholder for <img src="../images/diva/build-1.jpg" alt="describe the photo"> -->
-        <div class="duo reveal">
-          <figure><div class="frame"><div class="ph">photo</div></div></figure>
-          <figure><div class="frame"><div class="ph">photo</div></div></figure>
-          <figure><div class="frame"><div class="ph">photo</div></div></figure>
-          <figure><div class="frame"><div class="ph">photo</div></div></figure>
+        <div class="gallery-grid reveal">
+          <figure class="wide"><div class="frame"><img src="../images/diva/components.jpg" alt="DIVA's parts laid out: the camera headband, the tactile pad, the Raspberry Pi board and the relay box" loading="lazy"></div><figcaption>The parts before assembly: headband, tactile pad, Pi and relay box</figcaption></figure>
+          <figure><div class="frame tall"><img src="../images/diva/tactile-pad.jpg" alt="The 3D-printed tactile pad with its grid of actuator cells" loading="lazy"></div><figcaption>Tactile pad</figcaption></figure>
+          <figure><div class="frame tall"><img src="../images/diva/tactile-pad-side.jpg" alt="Side of the tactile pad, with DIVA printed on the housing" loading="lazy"></div><figcaption>Pad housing</figcaption></figure>
+          <figure><div class="frame tall"><img src="../images/diva/pi-case.jpg" alt="Raspberry Pi wired inside its case" loading="lazy"></div><figcaption>Raspberry Pi in its case</figcaption></figure>
+          <figure class="wide"><div class="frame"><img src="../images/diva/headband.jpg" alt="The OAK-D Lite mounted on an elastic headband" loading="lazy"></div><figcaption>OAK-D Lite on the headband</figcaption></figure>
         </div>
       </div>
     </div>
@@ -184,8 +183,8 @@
       <span><a href="https://github.com/yourusername" target="_blank" rel="noopener">GitHub</a> · <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener">LinkedIn</a> · <a href="../resume.pdf" target="_blank">Résumé</a> · <a href="mailto:you@email.com">Email</a></span>
     </div>
   </footer>
-  <script src="../ribbon.js?v=22"></script>
-  <script src="../main.js?v=22"></script>
-  <script src="render-sheet.js?v=22"></script>
+  <script src="../ribbon.js?v=24"></script>
+  <script src="../main.js?v=24"></script>
+  <script src="render-sheet.js?v=24"></script>
 </body>
 </html>
