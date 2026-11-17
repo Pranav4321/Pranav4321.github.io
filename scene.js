@@ -36,7 +36,7 @@
   const NR = 14, lerp = (a, b, t) => a + (b - a) * t;
   const ridges = Array.from({ length: NR }, (_, i) => {
     const t = i / (NR - 1);
-    return { b: lerp(.625, .94, t), a: lerp(.3, .07, t), sc: lerp(460, 200, t), al: lerp(.12, .72, Math.pow(t, .85)), seed: 7 + i * 6 };
+    return { b: lerp(.665, .945, t), a: lerp(.29, .07, t), sc: lerp(460, 200, t), al: lerp(.12, .72, Math.pow(t, .85)), seed: 7 + i * 6 };
   });
   const TR = Math.round(NR * .65); // ridge the lookout tower stands on
 

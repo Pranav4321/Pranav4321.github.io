@@ -327,7 +327,7 @@ body.landing ::selection { background: #1b1a18; color: #f2eee6; }
 /* a little paper grain over everything */
 .ink-hero::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .08; mix-blend-mode: multiply;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
-.landing .intro { position: absolute; left: 0; right: 0; top: 17%; z-index: 2; pointer-events: none; }
+.landing .intro { position: absolute; left: 0; right: 0; top: clamp(84px, 13.5%, 150px); z-index: 2; pointer-events: none; }
 .landing .intro > * { max-width: 35rem; pointer-events: auto; }
 .landing .hello { display: flex; align-items: center; gap: 18px; margin-bottom: 16px; }
 .landing .intro h1 { font-family: var(--serif); font-style: italic; font-weight: 400; font-size: 30px; line-height: 1.2; letter-spacing: -.01em; white-space: nowrap; }
