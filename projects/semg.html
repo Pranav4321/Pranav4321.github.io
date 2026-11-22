@@ -4,11 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Stroke sEMG · Pranav Sristy</title>
-  <meta name="description" content="A two-channel surface EMG armband: electrodes on the forearm, analog processing boards and an ESP32-C6 in a 3D-printed housing." />
+  <meta name="description" content="A low-cost two-channel surface EMG wearable for stroke rehabilitation research, validated against a Delsys Trigno system." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;1,8..60,400&family=Geist:wght@400..600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../style.css?v=26" />
+  <link rel="stylesheet" href="../style.css?v=27" />
   <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js" />
   <script type="importmap">
     { "imports": {
@@ -29,17 +29,16 @@
     <div class="page-head">
       <a class="back fade" href="../projects.html"><span>←</span> All projects</a>
       <h1 class="fade" style="animation-delay:.05s">Stroke sEMG</h1>
-      <p class="fade" style="animation-delay:.1s">A two-channel surface EMG wearable. Electrodes on a forearm band pick up muscle activity, and a small housing holds the analog processing and an ESP32-C6.</p>
+      <p class="fade" style="animation-delay:.1s">A low-cost, two-channel surface EMG wearable for stroke rehabilitation research. It records forearm flexor and extensor activity, logs to an SD card, streams over Bluetooth, and has been validated against a Delsys Trigno research system.</p>
     </div>
 
-    <!-- TODO: fill in your role, the timeline, team size and a link -->
     <div class="facts reveal">
       <div><span class="meta">Role</span><b>Hardware + CAD</b></div>
       <div><span class="meta">Timeline</span><b>2026</b></div>
-      <div><span class="meta">Team</span><b>Solo</b></div>
+      <div><span class="meta">Team</span><b>7 people, with the Raghavan Lab</b></div>
       <div><span class="meta">Links</span><b><a href="https://github.com/pranav4321" target="_blank" rel="noopener">GitHub ↗</a></b></div>
     </div>
-    <p class="stack reveal">Surface EMG · Analog signal conditioning · ESP32-C6 · Fusion · 3D printing</p>
+    <p class="stack reveal">Surface EMG · Analog signal conditioning · ESP32 · BLE + Wi-Fi · SD logging · Python · Butterworth / notch filtering · TKEO · Fusion · 3D printing · PCB design</p>
 
     <!-- The CAD model in 3D (semg-viewer.js). Hover it to take it apart; hover a row to find a part.
          Each <li> is one label in the model: data-part must match a part in semg-viewer.js, data-label is the label text. -->
@@ -62,18 +61,67 @@
     <div class="article">
       <aside class="toc">
         <a href="#overview">Overview</a>
+        <a href="#how">How it works</a>
         <a href="#hardware">Hardware</a>
+        <a href="#software">Firmware and software</a>
+        <a href="#validation">Validation</a>
+        <a href="#results">Results</a>
+        <a href="#v2">v2: custom PCB</a>
       </aside>
 
       <div class="prose">
         <h2 id="overview" class="reveal">Overview</h2>
-        <!-- TODO: what you're using the signal for, and why you built it -->
-        <p class="reveal">Surface EMG reads the electrical activity of muscles through the skin. This armband records two channels from the forearm: each electrode board sits on a muscle, and its signal runs down a cable to a processing board in the housing.</p>
+        <p class="reveal">Stroke recovery is mostly tracked by watching how a patient moves. Surface EMG adds a direct readout of the muscle activity behind the movement, but research-grade systems are expensive and tied to the lab. Our team is building a low-cost wearable that can go home with patients, working with Dr. Raghavan's stroke rehabilitation lab at Johns Hopkins.</p>
+        <p class="reveal">The device records two channels from the forearm, one on the wrist flexors and one on the extensors. I work on the hardware: the housing and second build shown above, and the v2 board.</p>
+
+        <h2 id="how" class="reveal">How it works</h2>
+        <div class="flow reveal">
+          <div class="flow-row">
+            <ol class="plain">
+              <li class="step"><b>Sense</b><span class="tech">Dry electrode boards</span><span>Pick up the muscle's voltage through the skin, one board per muscle.</span></li>
+              <li class="step"><b>Condition</b><span class="tech">Gravity analog EMG</span><span>Amplifies and filters each channel into a clean analog signal.</span></li>
+              <li class="step"><b>Sample</b><span class="tech">ESP32 ADC, 1 kHz</span><span>Digitizes both channels at 1,000 samples per second.</span></li>
+              <li class="step"><b>Store + stream</b><span class="tech">SD card, BLE, Wi-Fi</span><span>Logs to SD, streams a live view, and offloads sessions to a laptop.</span></li>
+            </ol>
+          </div>
+        </div>
 
         <h2 id="hardware" class="reveal">Hardware</h2>
-        <p class="reveal">Each channel has two parts. The electrode board on the band picks up the raw signal, and a Gravity analog EMG board in the housing amplifies and filters it. Both processing boards feed a Beetle ESP32-C6, which samples them and talks to a computer over USB-C.</p>
-        <p class="reveal">The housing is designed to print without supports. The two processing boards slide in side by side on rails, the Beetle slides in underneath, and a drop-in lid closes the end. The jacks for the sensor cables come out the front, and the JST wiring between the boards and the Beetle stays inside.</p>
-        <!-- TODO: add sections for signal processing, results, and photos of the build -->
+        <p class="reveal">Each channel has two boards. The electrode board on the band picks up the raw signal, and a Gravity analog EMG board in the housing amplifies and filters it. Both feed the microcontroller's ADC.</p>
+        <p class="reveal">The first prototype was a FireBeetle ESP32 on a cut-down breadboard with jumper wires. It worked, but the jumpers came loose and both signal pins sat on the ESP32's ADC2, which shares hardware with the Wi-Fi radio. Powering it from a power bank also added a steady ~10 Hz noise. The redesign moves to a <strong>Beetle ESP32-C6</strong> in a 3D-printed housing (59 × 51 × 21 mm) that prints without supports. The two processing boards slide in on rails, the Beetle slides in underneath, and a drop-in lid closes the end. The sensor jacks come out the front, and the JST wiring stays inside.</p>
+
+        <h2 id="software" class="reveal">Firmware and software</h2>
+        <p class="reveal">The firmware samples both channels at <strong>1 kHz</strong> and writes 12-byte records to the SD card in blocks of 256, so recording never waits on the radio. <strong>Bluetooth (NimBLE)</strong> handles session control and a live signal view, and <strong>Wi-Fi</strong> offloads finished session files. A Python GUI sets up each session (rest and motion timing, number of repeats), shows the live signal, and pulls the files down for analysis.</p>
+
+        <h2 id="validation" class="reveal">Validation</h2>
+        <p class="reveal">We recorded the same movements with our device and a <strong>Delsys Trigno</strong> system, using a fixed protocol:</p>
+        <ul class="reveal">
+          <li>15 s relaxed baseline.</li>
+          <li>3 wrist flexion and 3 wrist extension maximum voluntary contractions (MVCs), 5 s each with 30 s rest.</li>
+          <li>Dynamic wrist flexion/extension and radial/ulnar deviation at 60 bpm, 20 s of motion and 20 s of rest, three times each.</li>
+        </ul>
+        <p class="reveal">The analysis pipeline, in Python:</p>
+        <ul class="reveal">
+          <li><strong>Raw QC:</strong> sampling gaps, clipping and dropouts, and Welch PSDs and spectrograms to find 60 Hz interference.</li>
+          <li><strong>Sync:</strong> the two systems were aligned by cross-correlating 100 ms RMS envelopes, then checked for clock drift.</li>
+          <li><strong>Preprocessing:</strong> zero-phase Butterworth band-pass (20–450 Hz), a notch where the spectrum called for one, RMS envelopes normalized to %MVC, and each movement cycle resampled to 101 points.</li>
+          <li><strong>Onset:</strong> TKEO activation detection, thresholded at the rest mean + 6 SD.</li>
+        </ul>
+        <figure class="reveal"><div class="frame chart"><img src="../images/semg/fig-raw.jpg" alt="Raw EMG, Welch power spectra and spectrograms for both channels, Delsys on top and ESP32 below, during dynamic flexion and extension" loading="lazy"></div><figcaption>Raw signal QC for the same flexion/extension trial: Delsys (top) and our device (bottom). The dashed line marks 60 Hz.</figcaption></figure>
+        <figure class="reveal"><div class="frame chart"><img src="../images/semg/fig-sync.jpg" alt="RMS envelopes of both systems overlaid after time alignment, with the cross-correlation curve below" loading="lazy"></div><figcaption>The two systems aligned by envelope cross-correlation.</figcaption></figure>
+
+        <h2 id="results" class="reveal">Results</h2>
+        <div class="stats reveal">
+          <div><b>0.953</b><span>waveform correlation with Delsys</span></div>
+          <div><b>0.248</b><span>absolute MVC correlation</span></div>
+          <div><b>10–27 dB</b><span>bench SNR across channels and tasks</span></div>
+        </div>
+        <p class="reveal">The shape of each contraction tracks the research system closely, but absolute amplitude doesn't. On the clearest flexion/extension trial, our extensor channel read about 8 %MVC lower than the Delsys and the flexor about 17 %MVC higher. Radial/ulnar deviation separated poorly, and activation onsets didn't line up well. Some 60 Hz interference showed up on our flexor channel. Electrode placement, crosstalk between the two muscles, and the front end itself are the likely causes, and they set the goals for v2.</p>
+        <figure class="reveal"><div class="frame chart"><img src="../images/semg/fig-agree.jpg" alt="Cycle-level scatter plots, Bland-Altman plots, and mean RMS envelopes per movement cycle comparing the device to Delsys for extensor and flexor" loading="lazy"></div><figcaption>Cycle-level agreement for flexion/extension: scatter, Bland–Altman, and mean envelope ± SD. The extensor tracks closely; the flexor reads high.</figcaption></figure>
+
+        <h2 id="v2" class="reveal">v2: custom PCB</h2>
+        <!-- TODO: confirm the front-end chip and anything else that's settled on the v2 board -->
+        <p class="reveal">v2 replaces the two Gravity boards with a single <strong>custom PCB</strong>. The Gravity boards fix the electrode spacing on a rigid three-contact plate, add their own wiring and noise, and leave digitizing to the microcontroller's ADC. A custom board lets us place the electrodes independently and keep the analog path short, with input protection and a proper bias/reference. The leading candidate for the front end is TI's <strong>ADS1292</strong>: two simultaneous 24-bit channels over SPI, with a 120 dB typical CMRR. The goal is to close the amplitude gap and cut the 60 Hz pickup seen in validation.</p>
       </div>
     </div>
 
@@ -89,8 +137,8 @@
       <span><a href="https://github.com/yourusername" target="_blank" rel="noopener">GitHub</a> · <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener">LinkedIn</a> · <a href="../resume.pdf" target="_blank">Résumé</a> · <a href="mailto:you@email.com">Email</a></span>
     </div>
   </footer>
-  <script src="../ribbon.js?v=17"></script>
-  <script src="../main.js?v=17"></script>
+  <script src="../ribbon.js?v=27"></script>
+  <script src="../main.js?v=27"></script>
   <script type="module" src="semg-viewer.js?v=1"></script>
 </body>
 </html>

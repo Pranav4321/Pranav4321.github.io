@@ -195,7 +195,7 @@ section { padding: 64px 0; }
 .prose p + p { margin-top: 14px; }
 .prose strong { color: var(--ink); font-weight: 500; }
 .prose ul { list-style: none; margin-top: 14px; display: grid; gap: 8px; }
-.prose ul + p { margin-top: 14px; }
+.prose ul + p, .stats + p { margin-top: 18px; }
 .prose li { position: relative; padding-left: 20px; color: var(--muted); }
 .prose li::before { content: ""; position: absolute; left: 2px; top: .7em; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); opacity: .7; }
 .prose figure { margin: 26px 0; }
@@ -225,6 +225,8 @@ section { padding: 64px 0; }
 .prose figure.inset { float: right; width: 150px; margin: 4px 0 12px 22px; }
 .prose figure.inset .frame { aspect-ratio: 148 / 258; }
 .prose figure.inset figcaption { font-size: 12.5px; }
+.prose figure .frame.chart { aspect-ratio: auto; background: #fff; padding: 10px; }
+.prose figure .frame.chart img { height: auto; object-fit: contain; }
 .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 18px; }
 .stats div { padding: 4px 0; }
 .stats b { display: block; font-family: var(--serif); font-weight: 500; font-size: 24px; color: var(--accent); line-height: 1.1; }
