@@ -443,3 +443,18 @@ body.inner ::selection { background: rgba(110, 150, 230, .4); color: #fff; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .fade, .reveal { opacity: 1 !important; transform: none; filter: none; }
 }
+
+/* a project's CAD model in 3D on the same survey paper (projects/semg-viewer.js) */
+.render.viewer { cursor: zoom-in; outline: none; }
+.render.viewer:focus-visible .sheet::before { box-shadow: 0 0 0 2px var(--accent), 0 18px 40px -18px rgba(0, 0, 0, .7); }
+.render.viewer .sheet canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; opacity: 0; transition: opacity .6s var(--ease-out); }
+.render.viewer.loaded .sheet canvas { opacity: 1; }
+.render.viewer .leads, .render.viewer .tag { opacity: var(--label-o, 0); }
+.render.viewer .tag { pointer-events: none; }
+.render.viewer .leads line { vector-effect: none; }
+.model:has(.render.viewer) .model-parts li { cursor: pointer; }
+.render.viewer .badge { position: absolute; display: none; width: 17px; height: 17px; margin: -8.5px 0 0 -8.5px; border-radius: 50%; place-items: center; pointer-events: none;
+  font-size: 10px; font-weight: 500; line-height: 1; color: #1b1a18; background: rgba(242, 238, 230, .92); border: 1.2px solid #1b1a18; opacity: var(--label-o, 0); transition: background-color .2s, color .2s, border-color .2s; }
+.render.viewer .badge.on { background: #3a60aa; border-color: #3a60aa; color: #fff; }
+.render.viewer .sheet.compact .badge { display: grid; }
+.render.viewer .sheet.compact .tag, .render.viewer .sheet.compact .leads { display: none; }
