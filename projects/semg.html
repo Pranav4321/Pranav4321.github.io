@@ -53,8 +53,7 @@
         <li data-part="cables" data-label="Sensor cables"><b>Sensor cables</b><span>3.5 mm cables from each electrode board to its processing board.</span></li>
         <li data-part="proc" data-label="Processing boards"><b>Processing boards</b><span>Gravity analog EMG boards that amplify and filter each channel, then hand it to the Beetle over a 3-pin JST.</span></li>
         <li data-part="beetle" data-label="Beetle ESP32-C6"><b>Beetle ESP32-C6</b><span>Reads both channels on its ADC. USB-C for power and data.</span></li>
-        <li data-part="housing" data-label="Housing"><b>Housing</b><span>3D-printed, 59 × 51 × 21 mm. Slots hold both boards on top and the Beetle below, with room at the back for the JST wiring.</span></li>
-        <li data-part="lid" data-label="Lid"><b>Lid</b><span>Drops into a slot at the open end and carries the USB-C cutout.</span></li>
+        <li data-part="housing" data-label="Housing"><b>Housing</b><span>3D-printed, 59 × 51 × 21 mm. Slots hold both boards on top and the Beetle below; a drop-in lid with the USB-C cutout closes the end.</span></li>
       </ol>
     </section>
 
@@ -71,8 +70,8 @@
 
       <div class="prose">
         <h2 id="overview" class="reveal">Overview</h2>
-        <p class="reveal">Stroke recovery is mostly tracked by watching how a patient moves. Surface EMG adds a direct readout of the muscle activity behind the movement, but research-grade systems are expensive and tied to the lab. Our team is building a low-cost wearable that can go home with patients, working with Dr. Raghavan's stroke rehabilitation lab at Johns Hopkins.</p>
-        <p class="reveal">The device records two channels from the forearm, one on the wrist flexors and one on the extensors. I work on the hardware: the housing and second build shown above, and the v2 board.</p>
+        <p class="reveal">Stroke recovery is mostly tracked by watching how a patient moves. Surface EMG reads the muscle activity behind the movement, but research-grade systems are expensive and stay in the lab. With Dr. Raghavan's stroke rehabilitation lab at Johns Hopkins, our team is building a low-cost version that can go home with patients.</p>
+        <p class="reveal">It records two forearm channels, wrist flexors and extensors. I work on the hardware: the housing and second build above, and the v2 board.</p>
 
         <h2 id="how" class="reveal">How it works</h2>
         <div class="flow reveal">
@@ -87,14 +86,14 @@
         </div>
 
         <h2 id="hardware" class="reveal">Hardware</h2>
-        <p class="reveal">Each channel has two boards. The electrode board on the band picks up the raw signal, and a Gravity analog EMG board in the housing amplifies and filters it. Both feed the microcontroller's ADC.</p>
-        <p class="reveal">The first prototype was a FireBeetle ESP32 on a cut-down breadboard with jumper wires. It worked, but the jumpers came loose and both signal pins sat on the ESP32's ADC2, which shares hardware with the Wi-Fi radio. Powering it from a power bank also added a steady ~10 Hz noise. The redesign moves to a <strong>Beetle ESP32-C6</strong> in a 3D-printed housing (59 × 51 × 21 mm) that prints without supports. The two processing boards slide in on rails, the Beetle slides in underneath, and a drop-in lid closes the end. The sensor jacks come out the front, and the JST wiring stays inside.</p>
+        <p class="reveal">Each channel pairs an electrode board on the band with a Gravity analog EMG board in the housing that amplifies and filters it for the microcontroller's ADC.</p>
+        <p class="reveal">The first prototype, a FireBeetle ESP32 on a breadboard, had loose jumpers, signal pins on ADC2 (which shares hardware with Wi-Fi), and ~10 Hz noise from its power bank. The redesign moves to a <strong>Beetle ESP32-C6</strong> in a support-free 3D-printed housing (59 × 51 × 21 mm): the processing boards slide in on rails, the Beetle sits underneath, and the JST wiring stays inside.</p>
 
         <h2 id="software" class="reveal">Firmware and software</h2>
-        <p class="reveal">The firmware samples both channels at <strong>1 kHz</strong> and writes 12-byte records to the SD card in blocks of 256, so recording never waits on the radio. <strong>Bluetooth (NimBLE)</strong> handles session control and a live signal view, and <strong>Wi-Fi</strong> offloads finished session files. A Python GUI sets up each session (rest and motion timing, number of repeats), shows the live signal, and pulls the files down for analysis.</p>
+        <p class="reveal">The firmware samples both channels at <strong>1 kHz</strong> and writes to the SD card in 256-record blocks, so recording never waits on the radio. <strong>Bluetooth (NimBLE)</strong> handles session control and a live view, and <strong>Wi-Fi</strong> offloads finished sessions. A Python GUI sets session timing, shows the live signal and downloads the files.</p>
 
         <h2 id="validation" class="reveal">Validation</h2>
-        <p class="reveal">We recorded the same movements with our device and a <strong>Delsys Trigno</strong> system, using a fixed protocol:</p>
+        <p class="reveal">We recorded the same movements on our device and a <strong>Delsys Trigno</strong> system:</p>
         <ul class="reveal">
           <li>15 s relaxed baseline.</li>
           <li>3 wrist flexion and 3 wrist extension maximum voluntary contractions (MVCs), 5 s each with 30 s rest.</li>
@@ -116,12 +115,12 @@
           <div><b>0.248</b><span>absolute MVC correlation</span></div>
           <div><b>10–27 dB</b><span>bench SNR across channels and tasks</span></div>
         </div>
-        <p class="reveal">The shape of each contraction tracks the research system closely, but absolute amplitude doesn't. On the clearest flexion/extension trial, our extensor channel read about 8 %MVC lower than the Delsys and the flexor about 17 %MVC higher. Radial/ulnar deviation separated poorly, and activation onsets didn't line up well. Some 60 Hz interference showed up on our flexor channel. Electrode placement, crosstalk between the two muscles, and the front end itself are the likely causes, and they set the goals for v2.</p>
+        <p class="reveal">Contraction shape tracks the research system closely, but absolute amplitude doesn't. On the clearest flexion/extension trial, our extensor read about 8 %MVC below the Delsys and the flexor about 17 %MVC above it. Radial/ulnar deviation separated poorly, onsets didn't line up well, and the flexor picked up some 60 Hz. Electrode placement, crosstalk and the front end are the likely causes, and they set the goals for v2.</p>
         <figure class="reveal"><div class="frame chart"><img src="../images/semg/fig-agree.jpg" alt="Cycle-level scatter plots, Bland-Altman plots, and mean RMS envelopes per movement cycle comparing the device to Delsys for extensor and flexor" loading="lazy"></div><figcaption>Cycle-level agreement for flexion/extension: scatter, Bland–Altman, and mean envelope ± SD. The extensor tracks closely; the flexor reads high.</figcaption></figure>
 
         <h2 id="v2" class="reveal">v2: custom PCB</h2>
         <!-- TODO: confirm the front-end chip and anything else that's settled on the v2 board -->
-        <p class="reveal">v2 replaces the two Gravity boards with a single <strong>custom PCB</strong>. The Gravity boards fix the electrode spacing on a rigid three-contact plate, add their own wiring and noise, and leave digitizing to the microcontroller's ADC. A custom board lets us place the electrodes independently and keep the analog path short, with input protection and a proper bias/reference. The leading candidate for the front end is TI's <strong>ADS1292</strong>: two simultaneous 24-bit channels over SPI, with a 120 dB typical CMRR. The goal is to close the amplitude gap and cut the 60 Hz pickup seen in validation.</p>
+        <p class="reveal">v2 replaces both Gravity boards with one <strong>custom PCB</strong>. The Gravity boards lock the electrodes into a rigid three-contact plate and leave digitizing to the microcontroller. A custom board frees the electrode placement and keeps the analog path short, with input protection and a proper bias/reference. The leading front-end candidate is TI's <strong>ADS1292</strong> (two simultaneous 24-bit channels, SPI, 120 dB typical CMRR). The goal is to close the amplitude gap and cut the 60 Hz pickup.</p>
       </div>
     </div>
 
