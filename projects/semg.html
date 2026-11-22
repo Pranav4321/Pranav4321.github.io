@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stroke sEMG · Pranav Sristy</title>
+  <meta name="description" content="A two-channel surface EMG armband: electrodes on the forearm, analog processing boards and an ESP32-C6 in a 3D-printed housing." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;1,8..60,400&family=Geist:wght@400..600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css?v=26" />
+  <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js" />
+  <script type="importmap">
+    { "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+    } }
+  </script>
+</head>
+<body class="inner">
+  <header class="site-header">
+    <div class="wrap">
+      <a class="name" href="../index.html">Pranav Sristy</a>
+      <nav><a href="../experience.html">Experience</a><a href="../projects.html" class="active">Projects</a><a href="../woodworking.html">Woodshop</a></nav>
+    </div>
+  </header>
+
+  <main><div class="wrap">
+    <div class="page-head">
+      <a class="back fade" href="../projects.html"><span>←</span> All projects</a>
+      <h1 class="fade" style="animation-delay:.05s">Stroke sEMG</h1>
+      <p class="fade" style="animation-delay:.1s">A two-channel surface EMG wearable. Electrodes on a forearm band pick up muscle activity, and a small housing holds the analog processing and an ESP32-C6.</p>
+    </div>
+
+    <!-- TODO: fill in your role, the timeline, team size and a link -->
+    <div class="facts reveal">
+      <div><span class="meta">Role</span><b>Hardware + CAD</b></div>
+      <div><span class="meta">Timeline</span><b>2026</b></div>
+      <div><span class="meta">Team</span><b>Solo</b></div>
+      <div><span class="meta">Links</span><b><a href="https://github.com/pranav4321" target="_blank" rel="noopener">GitHub ↗</a></b></div>
+    </div>
+    <p class="stack reveal">Surface EMG · Analog signal conditioning · ESP32-C6 · Fusion · 3D printing</p>
+
+    <!-- The CAD model in 3D (semg-viewer.js). Hover it to take it apart; hover a row to find a part.
+         Each <li> is one label in the model: data-part must match a part in semg-viewer.js, data-label is the label text. -->
+    <section class="model reveal" aria-label="Interactive 3D CAD model of Stroke sEMG">
+      <div class="render wide viewer" id="semgViewer" data-model="../images/semg/semg_arm.glb">
+        <div class="sheet"><canvas></canvas></div>
+        <span class="render-credit">Loading the 3D model…</span>
+      </div>
+      <ol class="model-parts" id="semgParts">
+        <li data-part="electrode" data-label="Electrode boards"><b>Electrode boards</b><span>Two sensor boards held against the forearm, one per channel. Each sends its signal down a 3.5 mm cable.</span></li>
+        <li data-part="band" data-label="Band"><b>Band</b><span>Holds the electrodes on the muscle so they stay put while you move.</span></li>
+        <li data-part="cables" data-label="Sensor cables"><b>Sensor cables</b><span>3.5 mm cables from each electrode board to its processing board.</span></li>
+        <li data-part="proc" data-label="Processing boards"><b>Processing boards</b><span>Gravity analog EMG boards that amplify and filter each channel, then hand it to the Beetle over a 3-pin JST.</span></li>
+        <li data-part="beetle" data-label="Beetle ESP32-C6"><b>Beetle ESP32-C6</b><span>Reads both channels on its ADC. USB-C for power and data.</span></li>
+        <li data-part="housing" data-label="Housing"><b>Housing</b><span>3D-printed, 59 × 51 × 21 mm. Slots hold both boards on top and the Beetle below, with room at the back for the JST wiring.</span></li>
+        <li data-part="lid" data-label="Lid"><b>Lid</b><span>Drops into a slot at the open end and carries the USB-C cutout.</span></li>
+      </ol>
+    </section>
+
+    <div class="article">
+      <aside class="toc">
+        <a href="#overview">Overview</a>
+        <a href="#hardware">Hardware</a>
+      </aside>
+
+      <div class="prose">
+        <h2 id="overview" class="reveal">Overview</h2>
+        <!-- TODO: what you're using the signal for, and why you built it -->
+        <p class="reveal">Surface EMG reads the electrical activity of muscles through the skin. This armband records two channels from the forearm: each electrode board sits on a muscle, and its signal runs down a cable to a processing board in the housing.</p>
+
+        <h2 id="hardware" class="reveal">Hardware</h2>
+        <p class="reveal">Each channel has two parts. The electrode board on the band picks up the raw signal, and a Gravity analog EMG board in the housing amplifies and filters it. Both processing boards feed a Beetle ESP32-C6, which samples them and talks to a computer over USB-C.</p>
+        <p class="reveal">The housing is designed to print without supports. The two processing boards slide in side by side on rails, the Beetle slides in underneath, and a drop-in lid closes the end. The jacks for the sensor cables come out the front, and the JST wiring between the boards and the Beetle stays inside.</p>
+        <!-- TODO: add sections for signal processing, results, and photos of the build -->
+      </div>
+    </div>
+
+    <nav class="pager reveal" aria-label="More projects">
+      <a href="saar.html"><span class="meta">← Previous</span><b>SAAR</b></a>
+      <a href="diva.html"><span class="meta">Next →</span><b>DIVA</b></a>
+    </nav>
+  </div></main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>© <span id="year">2026</span> Pranav Sristy</span>
+      <span><a href="https://github.com/yourusername" target="_blank" rel="noopener">GitHub</a> · <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener">LinkedIn</a> · <a href="../resume.pdf" target="_blank">Résumé</a> · <a href="mailto:you@email.com">Email</a></span>
+    </div>
+  </footer>
+  <script src="../ribbon.js?v=17"></script>
+  <script src="../main.js?v=17"></script>
+  <script type="module" src="semg-viewer.js?v=1"></script>
+</body>
+</html>
