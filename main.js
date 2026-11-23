@@ -64,7 +64,7 @@
 
     const lb = $('lightbox');
     let current = 0, lastFocus = null;
-    const visible = () => pieces.filter(p => !p.classList.contains('hidden'));
+    const visible = () => pieces.filter(p => !p.classList.contains('hidden') && !p.classList.contains('soon'));
     function show(piece) {
       const d = piece.dataset;
       $('lbTitle').textContent = d.title || '';
@@ -86,7 +86,7 @@
       if (lastFocus) lastFocus.focus();
     }
     const step = dir => { const v = visible(); if (v.length) show(v[(current + dir + v.length) % v.length]); };
-    pieces.forEach(p => p.addEventListener('click', () => open(p)));
+    pieces.forEach(p => { if (!p.classList.contains('soon')) p.addEventListener('click', () => open(p)); }); // "coming soon" tiles don't open
     $('lbClose').onclick = close; $('lbPrev').onclick = () => step(-1); $('lbNext').onclick = () => step(1);
     lb.addEventListener('click', e => { if (e.target === lb) close(); });
     addEventListener('keydown', e => {

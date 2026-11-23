@@ -317,6 +317,8 @@ section { padding: 64px 0; }
 .piece h3 { transition: color .25s; }
 .piece:hover h3 { color: var(--accent); }
 .piece.hidden { display: none; }
+.piece.soon { cursor: default; }
+.piece.soon h3, .piece.soon:hover h3 { color: var(--muted); font-weight: 400; }
 .piece .img { position: relative; background: var(--faint); overflow: hidden; border-radius: 12px; }
 .piece .img img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease-out); }
 .piece:hover .img img { transform: scale(1.04); }
